@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @auther: wl
@@ -64,7 +63,10 @@ public class CustomerService {
             vo.setId(c.getId());
             vo.setAccount(c.getAccount());
             vo.setName(c.getName());
-            vo.setParentName(c.getName());
+            Customer parent = customerMapper.selectByPrimaryKey(c.getParentId());
+            if (Objects.nonNull(parent)){
+                vo.setParentName(parent.getName());
+            }
             vo.setTel(c.getTel());
             vo.setGmtCreate(c.getGmtCreate());
             vo.setAlipayName(c.getAlipayName());
@@ -76,7 +78,7 @@ public class CustomerService {
         return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);
     }
 
-    private Customer getInfoByToken(String token) {
+    public Customer getInfoByToken(String token) {
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria().andTokenEqualTo(token);
         List<Customer> customers = customerMapper.selectByExample(customerExample);
@@ -87,22 +89,36 @@ public class CustomerService {
     }
 
     public Boolean save(CustomerSaveDto dto, String token) {
-        Customer loginer = getInfoByToken(token);
+        if (Objects.isNull(dto.getId())){
+            CustomerExample customerExample = new CustomerExample();
+            customerExample.createCriteria().andAccountEqualTo(dto.getAccount());
+            List<Customer> customers = customerMapper.selectByExample(customerExample);
+            if (!CollectionUtils.isEmpty(customers)){
+                throw new AppException(ErrorCode.ERR_EXISTED, "该用户已存在");
+            }
+        }
         Customer customer = new Customer();
-        customer.setAccount(dto.getAccount());
-        customer.setPassword(dto.getPassword());
+        customer.setPassword(BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt()));
         customer.setName(dto.getName());
         customer.setTel(dto.getTel());
         customer.setEmail(dto.getEmail());
         customer.setAlipayName(dto.getAlipayName());
         customer.setAlipayAccount(dto.getAlipayAccount());
-        customer.setParentId(loginer.getId());
-        customer.setCredit(0);
-        customer.setCommission(new BigDecimal(0));
         Date date = new Date();
-        customer.setGmtCreate(date);
         customer.setGmtModified(date);
-        customerMapper.insertSelective(customer);
+        if (Objects.isNull(dto.getId())){
+            Customer loginer = getInfoByToken(token);
+            customer.setAccount(dto.getAccount());
+            customer.setIsEnabled(true);
+            customer.setParentId(loginer.getId());
+            customer.setCredit(0);
+            customer.setCommission(new BigDecimal(0));
+            customer.setGmtCreate(date);
+            customerMapper.insertSelective(customer);
+        }else {
+            customer.setIsEnabled(dto.getIsEnabled());
+            customerMapper.updateByPrimaryKeySelective(customer);
+        }
         return true;
     }
 
@@ -124,7 +140,7 @@ public class CustomerService {
         String token = RandomCodeUtil.getUuid();
         Customer c = new Customer();
         c.setId(customer.getId());
-        c.setToken(customer.getToken());
+        c.setToken(token);
         customerMapper.updateByPrimaryKeySelective(c);
         //token放入缓存
         tokenCacheService.addToken(token);
@@ -135,5 +151,9 @@ public class CustomerService {
     public Boolean logout(String token) {
         tokenCacheService.deleteToken(token);
         return true;
+    }
+
+    public Customer info(Long id) {
+        return customerMapper.selectByPrimaryKey(id);
     }
 }

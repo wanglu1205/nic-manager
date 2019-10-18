@@ -76,6 +76,21 @@ public class Customer implements Serializable {
     private String token;
 
     /**
+     * 是否启用
+     */
+    private Boolean isEnabled;
+
+    /**
+     * 微信支付appid
+     */
+    private String appId;
+
+    /**
+     * 所属互联网卡id集合，英文逗号分隔
+     */
+    private String cardIds;
+
+    /**
      * customer
      */
     private static final long serialVersionUID = 1L;
@@ -305,8 +320,56 @@ public class Customer implements Serializable {
     }
 
     /**
+     * 是否启用
+     * @return is_enabled 是否启用
+     */
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    /**
+     * 是否启用
+     * @param isEnabled 是否启用
+     */
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    /**
+     * 微信支付appid
+     * @return app_id 微信支付appid
+     */
+    public String getAppId() {
+        return appId;
+    }
+
+    /**
+     * 微信支付appid
+     * @param appId 微信支付appid
+     */
+    public void setAppId(String appId) {
+        this.appId = appId == null ? null : appId.trim();
+    }
+
+    /**
+     * 所属互联网卡id集合，英文逗号分隔
+     * @return card_ids 所属互联网卡id集合，英文逗号分隔
+     */
+    public String getCardIds() {
+        return cardIds;
+    }
+
+    /**
+     * 所属互联网卡id集合，英文逗号分隔
+     * @param cardIds 所属互联网卡id集合，英文逗号分隔
+     */
+    public void setCardIds(String cardIds) {
+        this.cardIds = cardIds == null ? null : cardIds.trim();
+    }
+
+    /**
      *
-     * @mbggenerated 2019-10-17
+     * @mbggenerated 2019-10-18
      */
     @Override
     public String toString() {
@@ -328,6 +391,9 @@ public class Customer implements Serializable {
         sb.append(", commission=").append(commission);
         sb.append(", credit=").append(credit);
         sb.append(", token=").append(token);
+        sb.append(", isEnabled=").append(isEnabled);
+        sb.append(", appId=").append(appId);
+        sb.append(", cardIds=").append(cardIds);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

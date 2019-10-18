@@ -1,23 +1,23 @@
 package com.nic.dal.mapper;
 
-import com.nic.dal.entity.Customer;
-import com.nic.dal.entity.CustomerExample;
+import com.nic.dal.entity.Package;
+import com.nic.dal.entity.PackageExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface CustomerMapper {
+public interface PackageMapper {
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    int countByExample(CustomerExample example);
+    int countByExample(PackageExample example);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    int deleteByExample(CustomerExample example);
+    int deleteByExample(PackageExample example);
 
     /**
      *
@@ -29,47 +29,47 @@ public interface CustomerMapper {
      *
      * @mbggenerated 2019-10-18
      */
-    int insert(Customer record);
+    int insert(Package record);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    int insertSelective(Customer record);
+    int insertSelective(Package record);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    List<Customer> selectByExample(CustomerExample example);
+    List<Package> selectByExample(PackageExample example);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    Customer selectByPrimaryKey(Long id);
+    Package selectByPrimaryKey(Long id);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    int updateByExampleSelective(@Param("record") Customer record, @Param("example") CustomerExample example);
+    int updateByExampleSelective(@Param("record") Package record, @Param("example") PackageExample example);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    int updateByExample(@Param("record") Customer record, @Param("example") CustomerExample example);
+    int updateByExample(@Param("record") Package record, @Param("example") PackageExample example);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    int updateByPrimaryKeySelective(Customer record);
+    int updateByPrimaryKeySelective(Package record);
 
     /**
      *
      * @mbggenerated 2019-10-18
      */
-    int updateByPrimaryKey(Customer record);
+    int updateByPrimaryKey(Package record);
 }
