@@ -1,36 +1,37 @@
 package com.nic.dal.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrderExample {
+public class OrderRecordExample {
     /**
-     * order
+     * order_record
      */
     protected String orderByClause;
 
     /**
-     * order
+     * order_record
      */
     protected boolean distinct;
 
     /**
-     * order
+     * order_record
      */
     protected List<Criteria> oredCriteria;
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
-    public OrderExample() {
+    public OrderRecordExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -38,7 +39,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -46,7 +47,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -54,7 +55,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public boolean isDistinct() {
         return distinct;
@@ -62,7 +63,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -70,7 +71,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -78,7 +79,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -88,7 +89,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -100,7 +101,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -109,7 +110,7 @@ public class OrderExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     public void clear() {
         oredCriteria.clear();
@@ -118,7 +119,7 @@ public class OrderExample {
     }
 
     /**
-     * order 2019-10-18
+     * order_record 2019-10-19
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -591,63 +592,63 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdIsNull() {
-            addCriterion("package_id is null");
+        public Criteria andMoneyIsNull() {
+            addCriterion("money is null");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdIsNotNull() {
-            addCriterion("package_id is not null");
+        public Criteria andMoneyIsNotNull() {
+            addCriterion("money is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdEqualTo(Long value) {
-            addCriterion("package_id =", value, "packageId");
+        public Criteria andMoneyEqualTo(BigDecimal value) {
+            addCriterion("money =", value, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdNotEqualTo(Long value) {
-            addCriterion("package_id <>", value, "packageId");
+        public Criteria andMoneyNotEqualTo(BigDecimal value) {
+            addCriterion("money <>", value, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdGreaterThan(Long value) {
-            addCriterion("package_id >", value, "packageId");
+        public Criteria andMoneyGreaterThan(BigDecimal value) {
+            addCriterion("money >", value, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("package_id >=", value, "packageId");
+        public Criteria andMoneyGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("money >=", value, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdLessThan(Long value) {
-            addCriterion("package_id <", value, "packageId");
+        public Criteria andMoneyLessThan(BigDecimal value) {
+            addCriterion("money <", value, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdLessThanOrEqualTo(Long value) {
-            addCriterion("package_id <=", value, "packageId");
+        public Criteria andMoneyLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("money <=", value, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdIn(List<Long> values) {
-            addCriterion("package_id in", values, "packageId");
+        public Criteria andMoneyIn(List<BigDecimal> values) {
+            addCriterion("money in", values, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdNotIn(List<Long> values) {
-            addCriterion("package_id not in", values, "packageId");
+        public Criteria andMoneyNotIn(List<BigDecimal> values) {
+            addCriterion("money not in", values, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdBetween(Long value1, Long value2) {
-            addCriterion("package_id between", value1, value2, "packageId");
+        public Criteria andMoneyBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("money between", value1, value2, "money");
             return (Criteria) this;
         }
 
-        public Criteria andPackageIdNotBetween(Long value1, Long value2) {
-            addCriterion("package_id not between", value1, value2, "packageId");
+        public Criteria andMoneyNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("money not between", value1, value2, "money");
             return (Criteria) this;
         }
 
@@ -790,10 +791,80 @@ public class OrderExample {
             addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
+
+        public Criteria andOrderNumberIsNull() {
+            addCriterion("order_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberIsNotNull() {
+            addCriterion("order_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberEqualTo(String value) {
+            addCriterion("order_number =", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotEqualTo(String value) {
+            addCriterion("order_number <>", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberGreaterThan(String value) {
+            addCriterion("order_number >", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("order_number >=", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLessThan(String value) {
+            addCriterion("order_number <", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLessThanOrEqualTo(String value) {
+            addCriterion("order_number <=", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLike(String value) {
+            addCriterion("order_number like", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotLike(String value) {
+            addCriterion("order_number not like", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberIn(List<String> values) {
+            addCriterion("order_number in", values, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotIn(List<String> values) {
+            addCriterion("order_number not in", values, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberBetween(String value1, String value2) {
+            addCriterion("order_number between", value1, value2, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotBetween(String value1, String value2) {
+            addCriterion("order_number not between", value1, value2, "orderNumber");
+            return (Criteria) this;
+        }
     }
 
     /**
-     * order
+     * order_record
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -803,7 +874,7 @@ public class OrderExample {
     }
 
     /**
-     * order 2019-10-18
+     * order_record 2019-10-19
      */
     public static class Criterion {
         private String condition;

@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.nic.dal.mapper.OrderMapper" >
-  <resultMap id="BaseResultMap" type="com.nic.dal.entity.Order" >
+<mapper namespace="com.nic.dal.mapper.RebateRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.nic.dal.entity.RebateRule" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
-    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
-    <result column="card_id" property="cardId" jdbcType="BIGINT" />
-    <result column="channel" property="channel" jdbcType="VARCHAR" />
-    <result column="handing_time" property="handingTime" jdbcType="TIMESTAMP" />
     <result column="package_id" property="packageId" jdbcType="BIGINT" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,17 +68,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, gmt_create, gmt_modified, customer_id, card_id, channel, handing_time, package_id, 
-    `status`, remark
+    id, gmt_create, gmt_modified, package_id, money, customer_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nic.dal.entity.OrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nic.dal.entity.RebateRuleExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from order
+    from rebate_rule
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,37 +88,33 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from order
+    from rebate_rule
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from order
+    delete from rebate_rule
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.nic.dal.entity.OrderExample" >
-    delete from order
+  <delete id="deleteByExample" parameterType="com.nic.dal.entity.RebateRuleExample" >
+    delete from rebate_rule
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.nic.dal.entity.Order" >
+  <insert id="insert" parameterType="com.nic.dal.entity.RebateRule" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into order (gmt_create, gmt_modified, customer_id, 
-      card_id, channel, handing_time, 
-      package_id, `status`, remark
-      )
-    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{customerId,jdbcType=BIGINT}, 
-      #{cardId,jdbcType=BIGINT}, #{channel,jdbcType=VARCHAR}, #{handingTime,jdbcType=TIMESTAMP}, 
-      #{packageId,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
-      )
+    insert into rebate_rule (gmt_create, gmt_modified, package_id, 
+      money, customer_id)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{packageId,jdbcType=BIGINT}, 
+      #{money,jdbcType=DECIMAL}, #{customerId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.nic.dal.entity.Order" >
+  <insert id="insertSelective" parameterType="com.nic.dal.entity.RebateRule" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into order
+    insert into rebate_rule
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="gmtCreate != null" >
         gmt_create,
@@ -131,26 +122,14 @@
       <if test="gmtModified != null" >
         gmt_modified,
       </if>
-      <if test="customerId != null" >
-        customer_id,
-      </if>
-      <if test="cardId != null" >
-        card_id,
-      </if>
-      <if test="channel != null" >
-        channel,
-      </if>
-      <if test="handingTime != null" >
-        handing_time,
-      </if>
       <if test="packageId != null" >
         package_id,
       </if>
-      <if test="status != null" >
-        `status`,
+      <if test="money != null" >
+        money,
       </if>
-      <if test="remark != null" >
-        remark,
+      <if test="customerId != null" >
+        customer_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -160,37 +139,25 @@
       <if test="gmtModified != null" >
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="customerId != null" >
-        #{customerId,jdbcType=BIGINT},
-      </if>
-      <if test="cardId != null" >
-        #{cardId,jdbcType=BIGINT},
-      </if>
-      <if test="channel != null" >
-        #{channel,jdbcType=VARCHAR},
-      </if>
-      <if test="handingTime != null" >
-        #{handingTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="packageId != null" >
         #{packageId,jdbcType=BIGINT},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
+      <if test="customerId != null" >
+        #{customerId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.nic.dal.entity.OrderExample" resultType="java.lang.Integer" >
-    select count(*) from order
+  <select id="countByExample" parameterType="com.nic.dal.entity.RebateRuleExample" resultType="java.lang.Integer" >
+    select count(*) from rebate_rule
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update order
+    update rebate_rule
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
@@ -201,26 +168,14 @@
       <if test="record.gmtModified != null" >
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.customerId != null" >
-        customer_id = #{record.customerId,jdbcType=BIGINT},
-      </if>
-      <if test="record.cardId != null" >
-        card_id = #{record.cardId,jdbcType=BIGINT},
-      </if>
-      <if test="record.channel != null" >
-        channel = #{record.channel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.handingTime != null" >
-        handing_time = #{record.handingTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.packageId != null" >
         package_id = #{record.packageId,jdbcType=BIGINT},
       </if>
-      <if test="record.status != null" >
-        `status` = #{record.status,jdbcType=VARCHAR},
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
       </if>
-      <if test="record.remark != null" >
-        remark = #{record.remark,jdbcType=VARCHAR},
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -228,23 +183,19 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update order
+    update rebate_rule
     set id = #{record.id,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      customer_id = #{record.customerId,jdbcType=BIGINT},
-      card_id = #{record.cardId,jdbcType=BIGINT},
-      channel = #{record.channel,jdbcType=VARCHAR},
-      handing_time = #{record.handingTime,jdbcType=TIMESTAMP},
       package_id = #{record.packageId,jdbcType=BIGINT},
-      `status` = #{record.status,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR}
+      money = #{record.money,jdbcType=DECIMAL},
+      customer_id = #{record.customerId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.nic.dal.entity.Order" >
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="com.nic.dal.entity.RebateRule" >
+    update rebate_rule
     <set >
       <if test="gmtCreate != null" >
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -252,41 +203,25 @@
       <if test="gmtModified != null" >
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="customerId != null" >
-        customer_id = #{customerId,jdbcType=BIGINT},
-      </if>
-      <if test="cardId != null" >
-        card_id = #{cardId,jdbcType=BIGINT},
-      </if>
-      <if test="channel != null" >
-        channel = #{channel,jdbcType=VARCHAR},
-      </if>
-      <if test="handingTime != null" >
-        handing_time = #{handingTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="packageId != null" >
         package_id = #{packageId,jdbcType=BIGINT},
       </if>
-      <if test="status != null" >
-        `status` = #{status,jdbcType=VARCHAR},
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.nic.dal.entity.Order" >
-    update order
+  <update id="updateByPrimaryKey" parameterType="com.nic.dal.entity.RebateRule" >
+    update rebate_rule
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      customer_id = #{customerId,jdbcType=BIGINT},
-      card_id = #{cardId,jdbcType=BIGINT},
-      channel = #{channel,jdbcType=VARCHAR},
-      handing_time = #{handingTime,jdbcType=TIMESTAMP},
       package_id = #{packageId,jdbcType=BIGINT},
-      `status` = #{status,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+      money = #{money,jdbcType=DECIMAL},
+      customer_id = #{customerId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

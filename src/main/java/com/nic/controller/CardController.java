@@ -11,6 +11,7 @@ import com.nic.common.model.vo.CustomerListVo;
 import com.nic.config.RestResponse;
 import com.nic.service.CardService;
 import com.nic.service.CustomerService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,11 +26,12 @@ import java.util.List;
 /**
  * @auther: wl
  * @date: 2019/10/18
- * @description:
+ * @description: 物联网卡控制器
  * @since : 1.0
  */
 @RestController
 @RequestMapping("/card")
+@Api(value = "card", tags = "物联网卡控制器")
 public class CardController {
 
     @Resource

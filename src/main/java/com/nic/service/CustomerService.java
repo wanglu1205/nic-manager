@@ -145,6 +145,7 @@ public class CustomerService {
         //token放入缓存
         tokenCacheService.addToken(token);
         customer.setToken(token);
+        customer.setPassword(null);
         return customer;
     }
 
@@ -154,6 +155,8 @@ public class CustomerService {
     }
 
     public Customer info(Long id) {
-        return customerMapper.selectByPrimaryKey(id);
+        Customer customer = customerMapper.selectByPrimaryKey(id);
+        customer.setPassword(null);
+        return customer;
     }
 }

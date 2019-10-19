@@ -32,10 +32,6 @@ public class PackageService {
     @Resource
     private PackageMapper packageMapper;
 
-    @Resource
-    private CustomerService customerService;
-
-
     public PageResult<PackageListVo> list(PackageListDto dto) {
         Page<PackageListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
         PackageExample packageExample = new PackageExample();

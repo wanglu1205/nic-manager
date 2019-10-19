@@ -1,9 +1,10 @@
 package com.nic.dal.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class Order implements Serializable {
+public class OrderRecord implements Serializable {
     /**
      * 
      */
@@ -40,9 +41,9 @@ public class Order implements Serializable {
     private Date handingTime;
 
     /**
-     * 套餐主键
+     * 金额
      */
-    private Long packageId;
+    private BigDecimal money;
 
     /**
      * 状态
@@ -55,7 +56,12 @@ public class Order implements Serializable {
     private String remark;
 
     /**
-     * order
+     * 订单编号
+     */
+    private String orderNumber;
+
+    /**
+     * order_record
      */
     private static final long serialVersionUID = 1L;
 
@@ -172,19 +178,19 @@ public class Order implements Serializable {
     }
 
     /**
-     * 套餐主键
-     * @return package_id 套餐主键
+     * 金额
+     * @return money 金额
      */
-    public Long getPackageId() {
-        return packageId;
+    public BigDecimal getMoney() {
+        return money;
     }
 
     /**
-     * 套餐主键
-     * @param packageId 套餐主键
+     * 金额
+     * @param money 金额
      */
-    public void setPackageId(Long packageId) {
-        this.packageId = packageId;
+    public void setMoney(BigDecimal money) {
+        this.money = money;
     }
 
     /**
@@ -220,8 +226,24 @@ public class Order implements Serializable {
     }
 
     /**
+     * 订单编号
+     * @return order_number 订单编号
+     */
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    /**
+     * 订单编号
+     * @param orderNumber 订单编号
+     */
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber == null ? null : orderNumber.trim();
+    }
+
+    /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-19
      */
     @Override
     public String toString() {
@@ -236,9 +258,10 @@ public class Order implements Serializable {
         sb.append(", cardId=").append(cardId);
         sb.append(", channel=").append(channel);
         sb.append(", handingTime=").append(handingTime);
-        sb.append(", packageId=").append(packageId);
+        sb.append(", money=").append(money);
         sb.append(", status=").append(status);
         sb.append(", remark=").append(remark);
+        sb.append(", orderNumber=").append(orderNumber);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

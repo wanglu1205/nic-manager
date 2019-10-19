@@ -13,6 +13,7 @@ import com.nic.dal.entity.Customer;
 import com.nic.dal.entity.Package;
 import com.nic.service.CustomerService;
 import com.nic.service.PackageService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,6 +30,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping("/package")
+@Api(value = "card", tags = "套餐控制器")
 public class PackageController {
 
     @Resource
@@ -44,7 +46,7 @@ public class PackageController {
     @GetMapping("/info")
     @ApiOperation(httpMethod = "GET", value = "详情")
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
-    public RestResponse<Package> info(Long id) {
+    public RestResponse<Package> info(Long id, @ApiParam(hidden = true) @LoginToken String token) {
         if (Objects.isNull(id)){
             throw new AppException(ErrorCode.ERR_PARAM);
         }
