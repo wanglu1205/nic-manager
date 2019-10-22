@@ -12,7 +12,7 @@ import java.util.List;
 
 @SpringBootApplication
 @MapperScan(basePackages = {"com.nic.dal.mapper"})
-class NicManagerApplication implements WebMvcConfigurer {
+public class NicManagerApplication implements WebMvcConfigurer {
 
     @Resource
     private TokenArgumentResolver tokenArgumentResolver;

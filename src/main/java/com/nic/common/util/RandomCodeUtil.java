@@ -73,11 +73,4 @@ public class RandomCodeUtil {
     public static String getUuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
-
-    //测试代码
-    public static void main(String[] args) {
-        System.out.println(RandomCodeUtil.getNumber(6));
-        System.out.println(RandomCodeUtil.getLetter(6));
-        System.out.println(RandomCodeUtil.getNumberOrLetter(4));
-    }
 }
