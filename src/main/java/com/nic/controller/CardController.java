@@ -4,21 +4,15 @@ import com.nic.auth.AuthConstants;
 import com.nic.auth.LoginToken;
 import com.nic.common.model.PageResult;
 import com.nic.common.model.dto.CardListDto;
-import com.nic.common.model.dto.CustomerListDto;
-import com.nic.common.model.dto.RechargeDto;
 import com.nic.common.model.vo.CardListVo;
-import com.nic.common.model.vo.CustomerListVo;
+import com.nic.common.model.vo.CardStatusVo;
 import com.nic.config.RestResponse;
 import com.nic.service.CardService;
-import com.nic.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -49,6 +43,13 @@ public class CardController {
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
     public RestResponse<Boolean> delete(@RequestBody List<Long> ids, @ApiParam(hidden = true) @LoginToken String token) {
         return RestResponse.success(cardService.delete(ids));
+    }
+
+    @GetMapping("/status")
+    @ApiOperation(httpMethod = "GET", value = "状态查询")
+    @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
+    public RestResponse<CardStatusVo> status(String number, @ApiParam(hidden = true) @LoginToken String token) {
+        return RestResponse.success(cardService.status(number));
     }
 
 }

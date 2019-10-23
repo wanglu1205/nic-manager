@@ -103,6 +103,7 @@ public class CustomerService {
         customer.setTel(dto.getTel());
         customer.setEmail(dto.getEmail());
         customer.setAlipayName(dto.getAlipayName());
+        customer.setGroupNumber(dto.getGroupNumber());
         customer.setAlipayAccount(dto.getAlipayAccount());
         Date date = new Date();
         customer.setGmtModified(date);

@@ -1,24 +1,28 @@
 package com.nic.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.hmf.common.http.LoadBalanceAsyncHttpClient;
 import com.nic.common.model.PageResult;
 import com.nic.common.model.dto.CardListDto;
-import com.nic.common.model.dto.RechargeDto;
 import com.nic.common.model.vo.CardListVo;
+import com.nic.common.model.vo.CardStatusVo;
 import com.nic.common.model.vo.CustomerListVo;
 import com.nic.dal.entity.Card;
 import com.nic.dal.entity.CardExample;
 import com.nic.dal.entity.Customer;
 import com.nic.dal.mapper.CardMapper;
 import com.nic.dal.mapper.CustomerMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @auther: wl
@@ -29,6 +33,8 @@ import java.util.Objects;
 @Service
 public class CardService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CardService.class);
+
     @Resource
     private CardMapper cardMapper;
 
@@ -37,6 +43,15 @@ public class CardService {
 
     @Resource
     private CustomerService customerService;
+
+    @Resource
+    private LoadBalanceAsyncHttpClient loadBalanceAsyncHttpClient;
+
+    @Value("${nic.card.host}")
+    private String HOST;
+
+    @Value("${nic.card.statusUrl}")
+    private String CARD_STATUS_URL;
 
     public PageResult<CardListVo> list(CardListDto dto, String token) {
         Customer customer = null;
@@ -77,5 +92,27 @@ public class CardService {
         cardExample.createCriteria().andIdIn(ids);
         cardMapper.deleteByExample(cardExample);
         return true;
+    }
+
+    public CardStatusVo status(String number) {
+        String result = null;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ICCID", number);
+        try {
+            result = loadBalanceAsyncHttpClient.postBody(HOST + CARD_STATUS_URL, buildHeader(), jsonObject.toJSONString(), 5000L, TimeUnit.MILLISECONDS);
+            logger.info("状态查询返回结果：{}", result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return JSON.parseObject(result, CardStatusVo.class);
+    }
+
+    /**
+     * 构造header(必填参数字段)
+     */
+    public Map<String, Object> buildHeader() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("Content-Type", "application/json");
+        return map;
     }
 }

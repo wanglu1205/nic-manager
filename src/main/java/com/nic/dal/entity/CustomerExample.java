@@ -23,7 +23,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public CustomerExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -31,7 +31,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -39,7 +39,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -47,7 +47,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -55,7 +55,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public boolean isDistinct() {
         return distinct;
@@ -63,7 +63,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -71,7 +71,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -79,7 +79,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -89,7 +89,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -101,7 +101,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -110,7 +110,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void clear() {
         oredCriteria.clear();
@@ -119,7 +119,7 @@ public class CustomerExample {
     }
 
     /**
-     * customer 2019-10-18
+     * customer 2019-10-23
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1281,6 +1281,76 @@ public class CustomerExample {
             addCriterion("card_ids not between", value1, value2, "cardIds");
             return (Criteria) this;
         }
+
+        public Criteria andGroupNumberIsNull() {
+            addCriterion("group_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberIsNotNull() {
+            addCriterion("group_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberEqualTo(String value) {
+            addCriterion("group_number =", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberNotEqualTo(String value) {
+            addCriterion("group_number <>", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberGreaterThan(String value) {
+            addCriterion("group_number >", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("group_number >=", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberLessThan(String value) {
+            addCriterion("group_number <", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberLessThanOrEqualTo(String value) {
+            addCriterion("group_number <=", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberLike(String value) {
+            addCriterion("group_number like", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberNotLike(String value) {
+            addCriterion("group_number not like", value, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberIn(List<String> values) {
+            addCriterion("group_number in", values, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberNotIn(List<String> values) {
+            addCriterion("group_number not in", values, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberBetween(String value1, String value2) {
+            addCriterion("group_number between", value1, value2, "groupNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupNumberNotBetween(String value1, String value2) {
+            addCriterion("group_number not between", value1, value2, "groupNumber");
+            return (Criteria) this;
+        }
     }
 
     /**
@@ -1294,7 +1364,7 @@ public class CustomerExample {
     }
 
     /**
-     * customer 2019-10-18
+     * customer 2019-10-23
      */
     public static class Criterion {
         private String condition;

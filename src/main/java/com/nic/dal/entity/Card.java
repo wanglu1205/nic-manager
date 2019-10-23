@@ -51,6 +51,11 @@ public class Card implements Serializable {
     private String operator;
 
     /**
+     * 
+     */
+    private String msisdn;
+
+    /**
      * card
      */
     private static final long serialVersionUID = 1L;
@@ -200,8 +205,24 @@ public class Card implements Serializable {
     }
 
     /**
+     * 
+     * @return msisdn 
+     */
+    public String getMsisdn() {
+        return msisdn;
+    }
+
+    /**
+     * 
+     * @param msisdn 
+     */
+    public void setMsisdn(String msisdn) {
+        this.msisdn = msisdn == null ? null : msisdn.trim();
+    }
+
+    /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     @Override
     public String toString() {
@@ -218,6 +239,7 @@ public class Card implements Serializable {
         sb.append(", totalUsedValue=").append(totalUsedValue);
         sb.append(", status=").append(status);
         sb.append(", operator=").append(operator);
+        sb.append(", msisdn=").append(msisdn);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

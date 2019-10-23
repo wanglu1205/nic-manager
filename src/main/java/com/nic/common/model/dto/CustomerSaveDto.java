@@ -36,6 +36,9 @@ public class CustomerSaveDto {
     @ApiModelProperty("邮箱")
     private String email;
 
+    @ApiModelProperty("集团客户编号")
+    private String groupNumber;
+
     @ApiModelProperty("是否启用")
     private Boolean isEnabled;
 

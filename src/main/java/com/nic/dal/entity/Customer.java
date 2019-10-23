@@ -91,6 +91,11 @@ public class Customer implements Serializable {
     private String cardIds;
 
     /**
+     * 集团客户编号
+     */
+    private String groupNumber;
+
+    /**
      * customer
      */
     private static final long serialVersionUID = 1L;
@@ -368,8 +373,24 @@ public class Customer implements Serializable {
     }
 
     /**
+     * 集团客户编号
+     * @return group_number 集团客户编号
+     */
+    public String getGroupNumber() {
+        return groupNumber;
+    }
+
+    /**
+     * 集团客户编号
+     * @param groupNumber 集团客户编号
+     */
+    public void setGroupNumber(String groupNumber) {
+        this.groupNumber = groupNumber == null ? null : groupNumber.trim();
+    }
+
+    /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     @Override
     public String toString() {
@@ -394,6 +415,7 @@ public class Customer implements Serializable {
         sb.append(", isEnabled=").append(isEnabled);
         sb.append(", appId=").append(appId);
         sb.append(", cardIds=").append(cardIds);
+        sb.append(", groupNumber=").append(groupNumber);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -23,7 +23,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public CardExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -31,7 +31,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -39,7 +39,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -47,7 +47,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -55,7 +55,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public boolean isDistinct() {
         return distinct;
@@ -63,7 +63,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -71,7 +71,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -79,7 +79,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -89,7 +89,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -101,7 +101,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -110,7 +110,7 @@ public class CardExample {
 
     /**
      *
-     * @mbggenerated 2019-10-18
+     * @mbggenerated 2019-10-23
      */
     public void clear() {
         oredCriteria.clear();
@@ -119,7 +119,7 @@ public class CardExample {
     }
 
     /**
-     * card 2019-10-18
+     * card 2019-10-23
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -751,6 +751,76 @@ public class CardExample {
             addCriterion("`operator` not between", value1, value2, "operator");
             return (Criteria) this;
         }
+
+        public Criteria andMsisdnIsNull() {
+            addCriterion("msisdn is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnIsNotNull() {
+            addCriterion("msisdn is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnEqualTo(String value) {
+            addCriterion("msisdn =", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnNotEqualTo(String value) {
+            addCriterion("msisdn <>", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnGreaterThan(String value) {
+            addCriterion("msisdn >", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnGreaterThanOrEqualTo(String value) {
+            addCriterion("msisdn >=", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnLessThan(String value) {
+            addCriterion("msisdn <", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnLessThanOrEqualTo(String value) {
+            addCriterion("msisdn <=", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnLike(String value) {
+            addCriterion("msisdn like", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnNotLike(String value) {
+            addCriterion("msisdn not like", value, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnIn(List<String> values) {
+            addCriterion("msisdn in", values, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnNotIn(List<String> values) {
+            addCriterion("msisdn not in", values, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnBetween(String value1, String value2) {
+            addCriterion("msisdn between", value1, value2, "msisdn");
+            return (Criteria) this;
+        }
+
+        public Criteria andMsisdnNotBetween(String value1, String value2) {
+            addCriterion("msisdn not between", value1, value2, "msisdn");
+            return (Criteria) this;
+        }
     }
 
     /**
@@ -764,7 +834,7 @@ public class CardExample {
     }
 
     /**
-     * card 2019-10-18
+     * card 2019-10-23
      */
     public static class Criterion {
         private String condition;

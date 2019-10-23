@@ -19,6 +19,7 @@
     <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
     <result column="app_id" property="appId" jdbcType="VARCHAR" />
     <result column="card_ids" property="cardIds" jdbcType="VARCHAR" />
+    <result column="group_number" property="groupNumber" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,7 +81,8 @@
   </sql>
   <sql id="Base_Column_List" >
     id, account, `password`, `name`, tel, email, parent_id, gmt_create, gmt_modified, 
-    alipay_account, alipay_name, commission, credit, token, is_enabled, app_id, card_ids
+    alipay_account, alipay_name, commission, credit, token, is_enabled, app_id, card_ids, 
+    group_number
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nic.dal.entity.CustomerExample" >
     select
@@ -122,13 +124,13 @@
       gmt_create, gmt_modified, alipay_account, 
       alipay_name, commission, credit, 
       token, is_enabled, app_id, 
-      card_ids)
+      card_ids, group_number)
     values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{alipayAccount,jdbcType=VARCHAR}, 
       #{alipayName,jdbcType=VARCHAR}, #{commission,jdbcType=DECIMAL}, #{credit,jdbcType=INTEGER}, 
       #{token,jdbcType=VARCHAR}, #{isEnabled,jdbcType=BIT}, #{appId,jdbcType=VARCHAR}, 
-      #{cardIds,jdbcType=VARCHAR})
+      #{cardIds,jdbcType=VARCHAR}, #{groupNumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.nic.dal.entity.Customer" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -184,6 +186,9 @@
       <if test="cardIds != null" >
         card_ids,
       </if>
+      <if test="groupNumber != null" >
+        group_number,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="account != null" >
@@ -233,6 +238,9 @@
       </if>
       <if test="cardIds != null" >
         #{cardIds,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNumber != null" >
+        #{groupNumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -296,6 +304,9 @@
       <if test="record.cardIds != null" >
         card_ids = #{record.cardIds,jdbcType=VARCHAR},
       </if>
+      <if test="record.groupNumber != null" >
+        group_number = #{record.groupNumber,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -319,7 +330,8 @@
       token = #{record.token,jdbcType=VARCHAR},
       is_enabled = #{record.isEnabled,jdbcType=BIT},
       app_id = #{record.appId,jdbcType=VARCHAR},
-      card_ids = #{record.cardIds,jdbcType=VARCHAR}
+      card_ids = #{record.cardIds,jdbcType=VARCHAR},
+      group_number = #{record.groupNumber,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -375,6 +387,9 @@
       <if test="cardIds != null" >
         card_ids = #{cardIds,jdbcType=VARCHAR},
       </if>
+      <if test="groupNumber != null" >
+        group_number = #{groupNumber,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -395,7 +410,8 @@
       token = #{token,jdbcType=VARCHAR},
       is_enabled = #{isEnabled,jdbcType=BIT},
       app_id = #{appId,jdbcType=VARCHAR},
-      card_ids = #{cardIds,jdbcType=VARCHAR}
+      card_ids = #{cardIds,jdbcType=VARCHAR},
+      group_number = #{groupNumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
