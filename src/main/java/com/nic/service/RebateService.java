@@ -5,10 +5,12 @@ import com.github.pagehelper.PageHelper;
 import com.nic.common.model.PageResult;
 import com.nic.common.model.dto.RebateRecordListDto;
 import com.nic.common.model.dto.RebateRuleSaveDto;
+import com.nic.common.model.vo.PackageListVo;
 import com.nic.common.model.vo.RebateRecordListVo;
 import com.nic.config.AppException;
 import com.nic.config.ErrorCode;
 import com.nic.dal.entity.*;
+import com.nic.dal.entity.Package;
 import com.nic.dal.mapper.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -70,7 +71,7 @@ public class RebateService {
         return true;
     }
 
-    public PageResult<RebateRecordListVo> recordList(RebateRecordListDto dto, Consumer<RebateRecord> rebateRecordConsumer) {
+    public PageResult<RebateRecordListVo> recordList(RebateRecordListDto dto) {
         RebateRecordExample rebateRecordExample = new RebateRecordExample();
         RebateRecordExample.Criteria criteria = rebateRecordExample.createCriteria();
         if (StringUtils.isNotBlank(dto.getName())){
@@ -100,7 +101,35 @@ public class RebateService {
         Page<RebateRecordListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
         List<RebateRecord> rebateRecords = rebateRecordMapper.selectByExample(rebateRecordExample);
         List<RebateRecordListVo> vos = new ArrayList<>();
-        rebateRecords.forEach(rebateRecordConsumer);
+        rebateRecords.forEach(rebateRecord -> {
+            RebateRecordListVo vo = new RebateRecordListVo();
+            vo.setId(rebateRecord.getId());
+            Customer customer = customerMapper.selectByPrimaryKey(rebateRecord.getCustomerId());
+            if (Objects.nonNull(customer)){
+                vo.setCustomerName(customer.getName());
+            }
+            Card card = cardMapper.selectByPrimaryKey(rebateRecord.getCardId());
+            if (Objects.nonNull(card)){
+                vo.setNumber(card.getNumber());
+            }
+            Package aPackage = packageMapper.selectByPrimaryKey(rebateRecord.getPackageId());
+            if (Objects.nonNull(aPackage)){
+                vo.setPackageName(aPackage.getName());
+            }
+            Customer rebateCustomer = customerMapper.selectByPrimaryKey(rebateRecord.getRebateCustomerId());
+            if (Objects.nonNull(rebateCustomer)){
+                vo.setRebateCustomerName(rebateCustomer.getName());
+            }
+            vo.setStartMoney(rebateRecord.getMoney());
+            vo.setMoney(rebateRecord.getRebateMoney());
+            vo.setEndMoney(rebateRecord.getMoney().add(rebateRecord.getRebateMoney()));
+            OrderRecord orderRecord = orderRecordMapper.selectByPrimaryKey(rebateRecord.getOrderId());
+            if (Objects.nonNull(orderRecord)){
+                vo.setOrderNumber(orderRecord.getOrderNumber());
+            }
+            vo.setTime(rebateRecord.getGmtCreate());
+            vos.add(vo);
+        });
         return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);
     }
 }
