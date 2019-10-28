@@ -38,7 +38,7 @@ public class OrderController {
     @ApiOperation(httpMethod = "POST", value = "充值")
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
     public RestResponse<Boolean> recharge(@RequestBody RechargeDto dto, @ApiParam(hidden = true) @LoginToken String token) {
-        if (Objects.isNull(dto) || CollectionUtils.isEmpty(dto.getNumbers()) || Objects.isNull(dto.getPackageId())){
+        if (Objects.isNull(dto) || Objects.isNull(dto.getCardId()) || Objects.isNull(dto.getPackageId())){
             throw new AppException(ErrorCode.ERR_PARAM);
         }
         return RestResponse.success(orderService.recharge(dto, token));

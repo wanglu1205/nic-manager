@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -48,8 +49,14 @@ public class CardController {
     @GetMapping("/status")
     @ApiOperation(httpMethod = "GET", value = "状态查询")
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
-    public RestResponse<CardStatusVo> status(String number, @ApiParam(hidden = true) @LoginToken String token) {
-        return RestResponse.success(cardService.status(number));
+    public RestResponse<CardStatusVo> status(Long id, @ApiParam(hidden = true) @LoginToken String token) {
+        return RestResponse.success(cardService.status(id));
     }
 
+    @PostMapping("/import")
+    @ApiOperation(httpMethod = "POST", value = "导入")
+    @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
+    public RestResponse<List<String>> importData(MultipartFile file, @ApiParam(hidden = true) @LoginToken String token) {
+        return RestResponse.success(cardService.importData(file, token));
+    }
 }

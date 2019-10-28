@@ -1,8 +1,7 @@
 package com.nic.common.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.List;
+import lombok.Data;
 
 /**
  * @auther: wl
@@ -10,27 +9,13 @@ import java.util.List;
  * @description:
  * @since : 1.0
  */
+@Data
 public class RechargeDto {
 
-    @ApiModelProperty("卡号集合")
-    private List<String> numbers;
+    @ApiModelProperty("卡主键")
+    private Long cardId;
 
     @ApiModelProperty("套餐主键")
     private Long packageId;
 
-    public List<String> getNumbers() {
-        return numbers;
-    }
-
-    public void setNumbers(List<String> numbers) {
-        this.numbers = numbers;
-    }
-
-    public Long getPackageId() {
-        return packageId;
-    }
-
-    public void setPackageId(Long packageId) {
-        this.packageId = packageId;
-    }
 }

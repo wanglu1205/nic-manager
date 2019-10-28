@@ -14,7 +14,7 @@ mybatis:
 
 nic:
   card:
-    host:
-    statusUrl:
-    rechargeUrl:
+    host: http://www.xunaa.cn
+    statusUrl: /wxpay/ch_mobile_query.php
+    rechargeUrl: /wxpay/ch_mobile_fee_charge.php
 
