@@ -1,7 +1,6 @@
 package com.nic.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.hmf.common.http.LoadBalanceAsyncHttpClient;
@@ -19,7 +18,6 @@ import com.nic.dal.entity.CustomerExample;
 import com.nic.dal.mapper.CardMapper;
 import com.nic.dal.mapper.CustomerMapper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.asynchttpclient.Param;
@@ -31,9 +29,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 

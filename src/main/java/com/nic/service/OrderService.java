@@ -1,16 +1,14 @@
 package com.nic.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.hmf.common.http.LoadBalanceAsyncHttpClient;
 import com.nic.common.enums.RechargeStatusEnum;
 import com.nic.common.model.dto.RechargeDto;
 import com.nic.common.model.vo.CardRechargeVo;
-import com.nic.common.model.vo.CardStatusVo;
 import com.nic.config.AppException;
 import com.nic.config.ErrorCode;
-import com.nic.dal.entity.*;
 import com.nic.dal.entity.Package;
+import com.nic.dal.entity.*;
 import com.nic.dal.mapper.*;
 import org.apache.commons.lang3.StringUtils;
 import org.asynchttpclient.Param;
@@ -22,8 +20,10 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
