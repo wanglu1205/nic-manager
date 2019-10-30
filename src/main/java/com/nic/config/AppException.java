@@ -1,9 +1,5 @@
 package com.nic.config;
 
-/**
- * 异常
- * Created by yongli.chen.
- */
 public class AppException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
