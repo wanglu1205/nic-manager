@@ -23,7 +23,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public OrderRecordExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -31,7 +31,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -39,7 +39,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -47,7 +47,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -55,7 +55,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public boolean isDistinct() {
         return distinct;
@@ -63,7 +63,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -71,7 +71,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -79,7 +79,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -89,7 +89,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -101,7 +101,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -110,7 +110,7 @@ public class OrderRecordExample {
 
     /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     public void clear() {
         oredCriteria.clear();
@@ -119,7 +119,7 @@ public class OrderRecordExample {
     }
 
     /**
-     * order_record 2019-10-19
+     * order_record 2019-10-31
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -861,6 +861,66 @@ public class OrderRecordExample {
             addCriterion("order_number not between", value1, value2, "orderNumber");
             return (Criteria) this;
         }
+
+        public Criteria andRebateIsNull() {
+            addCriterion("rebate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateIsNotNull() {
+            addCriterion("rebate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateEqualTo(BigDecimal value) {
+            addCriterion("rebate =", value, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateNotEqualTo(BigDecimal value) {
+            addCriterion("rebate <>", value, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateGreaterThan(BigDecimal value) {
+            addCriterion("rebate >", value, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("rebate >=", value, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateLessThan(BigDecimal value) {
+            addCriterion("rebate <", value, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("rebate <=", value, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateIn(List<BigDecimal> values) {
+            addCriterion("rebate in", values, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateNotIn(List<BigDecimal> values) {
+            addCriterion("rebate not in", values, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("rebate between", value1, value2, "rebate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRebateNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("rebate not between", value1, value2, "rebate");
+            return (Criteria) this;
+        }
     }
 
     /**
@@ -874,7 +934,7 @@ public class OrderRecordExample {
     }
 
     /**
-     * order_record 2019-10-19
+     * order_record 2019-10-31
      */
     public static class Criterion {
         private String condition;

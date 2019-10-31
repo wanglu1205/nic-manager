@@ -93,6 +93,7 @@ public class OrderService {
         //调用充值接口
         String result = recharge(p.getPrice(), customer, card.getMsisdn());
 
+        BigDecimal totalMoney = new BigDecimal(0);
         boolean isRechargeSuccess = true;
         boolean isRebateSuccess = true;
         if (StringUtils.isBlank(result)){
@@ -109,7 +110,7 @@ public class OrderService {
         Date date = new Date();
         if (isRechargeSuccess){
             //返利
-            isRebateSuccess = rebate(card, p, customer, customerList, order, date);
+            isRebateSuccess = rebate(card, p, customer, customerList, order, date, totalMoney);
         }
         if (isRechargeSuccess && isRebateSuccess){
             order.setStatus(RechargeStatusEnum.SUCCESS_SUCCESS.getCode());
@@ -123,12 +124,13 @@ public class OrderService {
         order.setMoney(p.getPrice());
         order.setGmtCreate(date);
         order.setGmtModified(date);
+        order.setRebate(totalMoney);
         orderRecordMapper.insertSelective(order);
 
         return true;
     }
 
-    private Boolean rebate(Card card, Package p, Customer customer, List<Customer> customerList, OrderRecord order, Date date) {
+    private Boolean rebate(Card card, Package p, Customer customer, List<Customer> customerList, OrderRecord order, Date date, BigDecimal totalMoney) {
         //获取该卡绑定的代理商
         List<Customer> customers = getCustomers(customerList, card);
         if (CollectionUtils.isEmpty(customers)){
@@ -160,6 +162,9 @@ public class OrderService {
                 record.setGmtCreate(date);
                 record.setGmtModified(date);
                 rebateRecordMapper.insertSelective(record);
+
+                totalMoney = totalMoney.add(money);
+
                 //更新账户余额
                 Customer customer1 = new Customer();
                 customer1.setId(c.getId());

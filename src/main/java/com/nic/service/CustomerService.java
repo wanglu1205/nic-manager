@@ -72,7 +72,10 @@ public class CustomerService {
             vo.setAlipayName(c.getAlipayName());
             vo.setAlipayAccount(c.getAlipayAccount());
             vo.setCredit(c.getCredit());
+            vo.setGroupNumber(c.getGroupNumber());
+            vo.setEmail(c.getEmail());
             vo.setCommission(c.getCommission());
+            vo.setIsEnabled(c.getIsEnabled());
             vos.add(vo);
         });
         return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);

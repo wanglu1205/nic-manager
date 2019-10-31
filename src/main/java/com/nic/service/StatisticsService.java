@@ -5,6 +5,7 @@ import com.nic.dal.entity.Customer;
 import com.nic.dal.entity.CustomerExample;
 import com.nic.dal.entity.OrderRecordExample;
 import com.nic.dal.mapper.CustomerMapper;
+import com.nic.dal.mapper.OrderRecordMapext;
 import com.nic.dal.mapper.OrderRecordMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -31,6 +32,9 @@ public class StatisticsService {
 
     @Resource
     private CustomerService customerService;
+
+    @Resource
+    private OrderRecordMapext orderRecordMapext;
 
     public ProfitVo profit(String token) {
         List<Customer> c1 = null;
@@ -70,11 +74,19 @@ public class StatisticsService {
             orderNum += count;
         }
 
+        int todayOrderCount = orderRecordMapext.selectTodayOrderCount();
+        int monthOrderCount = orderRecordMapext.selectMonthOrderCount();
+        int lastTodayOrderCount = orderRecordMapext.selectLastTodayOrderCount();
+        int lastMonthOrderCount = orderRecordMapext.selectLastMonthOrderCount();
         ProfitVo vo = new ProfitVo();
         vo.setOneCustomerNum(oneCustomerNum);
         vo.setCustomerNum(customerNum);
         vo.setRebateCount(rebateCount);
         vo.setOrderNum(orderNum);
+        vo.setTodayOrderNum(todayOrderCount);
+        vo.setYesterdayOrderNum(lastTodayOrderCount);
+        vo.setMonthOrderNum(monthOrderCount);
+        vo.setLastMonthOrderNum(lastMonthOrderCount);
         return vo;
     }
 }

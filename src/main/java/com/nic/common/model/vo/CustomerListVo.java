@@ -43,8 +43,17 @@ public class CustomerListVo {
     @ApiModelProperty("佣金")
     private BigDecimal commission;
 
+    @ApiModelProperty("客户集团编号")
+    private String groupNumber;
+
+    @ApiModelProperty("邮箱")
+    private String email;
+
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date gmtCreate;
+
+    @ApiModelProperty("停用启用")
+    private Boolean isEnabled;
 
 }

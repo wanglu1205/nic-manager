@@ -21,12 +21,12 @@ public class OrderRecord implements Serializable {
     private Date gmtModified;
 
     /**
-     * 客户主键
+     * 
      */
     private Long customerId;
 
     /**
-     * 卡号主键
+     * 
      */
     private Long cardId;
 
@@ -41,24 +41,29 @@ public class OrderRecord implements Serializable {
     private Date handingTime;
 
     /**
-     * 金额
+     * 
      */
     private BigDecimal money;
 
     /**
-     * 状态
+     * 
      */
     private String status;
 
     /**
-     * 备注
+     * 
      */
     private String remark;
 
     /**
-     * 订单编号
+     * 
      */
     private String orderNumber;
+
+    /**
+     * 
+     */
+    private BigDecimal rebate;
 
     /**
      * order_record
@@ -114,32 +119,32 @@ public class OrderRecord implements Serializable {
     }
 
     /**
-     * 客户主键
-     * @return customer_id 客户主键
+     * 
+     * @return customer_id 
      */
     public Long getCustomerId() {
         return customerId;
     }
 
     /**
-     * 客户主键
-     * @param customerId 客户主键
+     * 
+     * @param customerId 
      */
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
     /**
-     * 卡号主键
-     * @return card_id 卡号主键
+     * 
+     * @return card_id 
      */
     public Long getCardId() {
         return cardId;
     }
 
     /**
-     * 卡号主键
-     * @param cardId 卡号主键
+     * 
+     * @param cardId 
      */
     public void setCardId(Long cardId) {
         this.cardId = cardId;
@@ -178,72 +183,88 @@ public class OrderRecord implements Serializable {
     }
 
     /**
-     * 金额
-     * @return money 金额
+     * 
+     * @return money 
      */
     public BigDecimal getMoney() {
         return money;
     }
 
     /**
-     * 金额
-     * @param money 金额
+     * 
+     * @param money 
      */
     public void setMoney(BigDecimal money) {
         this.money = money;
     }
 
     /**
-     * 状态
-     * @return status 状态
+     * 
+     * @return status 
      */
     public String getStatus() {
         return status;
     }
 
     /**
-     * 状态
-     * @param status 状态
+     * 
+     * @param status 
      */
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
 
     /**
-     * 备注
-     * @return remark 备注
+     * 
+     * @return remark 
      */
     public String getRemark() {
         return remark;
     }
 
     /**
-     * 备注
-     * @param remark 备注
+     * 
+     * @param remark 
      */
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
 
     /**
-     * 订单编号
-     * @return order_number 订单编号
+     * 
+     * @return order_number 
      */
     public String getOrderNumber() {
         return orderNumber;
     }
 
     /**
-     * 订单编号
-     * @param orderNumber 订单编号
+     * 
+     * @param orderNumber 
      */
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber == null ? null : orderNumber.trim();
     }
 
     /**
+     * 
+     * @return rebate 
+     */
+    public BigDecimal getRebate() {
+        return rebate;
+    }
+
+    /**
+     * 
+     * @param rebate 
+     */
+    public void setRebate(BigDecimal rebate) {
+        this.rebate = rebate;
+    }
+
+    /**
      *
-     * @mbggenerated 2019-10-19
+     * @mbggenerated 2019-10-31
      */
     @Override
     public String toString() {
@@ -262,6 +283,7 @@ public class OrderRecord implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", remark=").append(remark);
         sb.append(", orderNumber=").append(orderNumber);
+        sb.append(", rebate=").append(rebate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

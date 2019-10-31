@@ -13,6 +13,7 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="rebate" property="rebate" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, gmt_create, gmt_modified, customer_id, card_id, channel, handing_time, money, 
-    `status`, remark, order_number
+    `status`, remark, order_number, rebate
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nic.dal.entity.OrderRecordExample" >
     select
@@ -114,11 +115,11 @@
     insert into order_record (gmt_create, gmt_modified, customer_id, 
       card_id, channel, handing_time, 
       money, `status`, remark, 
-      order_number)
+      order_number, rebate)
     values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{customerId,jdbcType=BIGINT}, 
       #{cardId,jdbcType=BIGINT}, #{channel,jdbcType=VARCHAR}, #{handingTime,jdbcType=TIMESTAMP}, 
       #{money,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{orderNumber,jdbcType=VARCHAR})
+      #{orderNumber,jdbcType=VARCHAR}, #{rebate,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.nic.dal.entity.OrderRecord" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -156,6 +157,9 @@
       <if test="orderNumber != null" >
         order_number,
       </if>
+      <if test="rebate != null" >
+        rebate,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="gmtCreate != null" >
@@ -187,6 +191,9 @@
       </if>
       <if test="orderNumber != null" >
         #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rebate != null" >
+        #{rebate,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -232,6 +239,9 @@
       <if test="record.orderNumber != null" >
         order_number = #{record.orderNumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.rebate != null" >
+        rebate = #{record.rebate,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -249,7 +259,8 @@
       money = #{record.money,jdbcType=DECIMAL},
       `status` = #{record.status,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR},
-      order_number = #{record.orderNumber,jdbcType=VARCHAR}
+      order_number = #{record.orderNumber,jdbcType=VARCHAR},
+      rebate = #{record.rebate,jdbcType=DECIMAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,6 +298,9 @@
       <if test="orderNumber != null" >
         order_number = #{orderNumber,jdbcType=VARCHAR},
       </if>
+      <if test="rebate != null" >
+        rebate = #{rebate,jdbcType=DECIMAL},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -301,7 +315,8 @@
       money = #{money,jdbcType=DECIMAL},
       `status` = #{status,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
-      order_number = #{orderNumber,jdbcType=VARCHAR}
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      rebate = #{rebate,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
