@@ -120,6 +120,7 @@ public class CustomerService {
             customer.setGmtCreate(date);
             customerMapper.insertSelective(customer);
         }else {
+            customer.setId(dto.getId());
             customer.setIsEnabled(dto.getIsEnabled());
             customerMapper.updateByPrimaryKeySelective(customer);
         }
