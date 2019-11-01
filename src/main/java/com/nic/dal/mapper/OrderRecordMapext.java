@@ -1,20 +1,22 @@
 package com.nic.dal.mapper;
 
+import java.util.List;
+
 public interface OrderRecordMapext {
 
-    int selectTodayOrderCount();
+    int selectTodayOrderCount(List<Long> cardIdList);
 
-    int selectMonthOrderCount();
+    int selectMonthOrderCount(List<Long> cardIdList);
 
-    int selectLastTodayOrderCount();
+    int selectLastTodayOrderCount(List<Long> cardIdList);
 
-    int selectLastMonthOrderCount();
+    int selectLastMonthOrderCount(List<Long> cardIdList);
 
-    double selectTodayRebateCount();
+    double selectTodayRebateCount(List<Long> cardIdList);
 
-    double selectMonthRebateCount();
+    double selectMonthRebateCount(List<Long> cardIdList);
 
-    double selectLastTodayRebateCount();
+    double selectLastTodayRebateCount(List<Long> cardIdList);
 
-    double selectLastMonthRebateCount();
+    double selectLastMonthRebateCount(List<Long> cardIdList);
 }

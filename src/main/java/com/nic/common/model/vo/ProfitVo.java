@@ -30,24 +30,24 @@ public class ProfitVo {
     private Integer todayOrderNum;
 
     @ApiModelProperty("当日返利")
-    private Integer todayRebateCount;
+    private BigDecimal todayRebateCount;
 
     @ApiModelProperty("当月订单数")
     private Integer monthOrderNum;
 
     @ApiModelProperty("当月返利")
-    private Integer monthRebateCount;
+    private BigDecimal monthRebateCount;
 
     @ApiModelProperty("昨日订单数")
     private Integer yesterdayOrderNum;
 
     @ApiModelProperty("昨日返利")
-    private Integer yesterdayRebateCount;
+    private BigDecimal yesterdayRebateCount;
 
-    @ApiModelProperty("当日订单数")
+    @ApiModelProperty("上月订单数")
     private Integer lastMonthOrderNum;
 
-    @ApiModelProperty("当日返利")
-    private Integer lastMonthRebateCount;
+    @ApiModelProperty("上月返利")
+    private BigDecimal lastMonthRebateCount;
 
 }

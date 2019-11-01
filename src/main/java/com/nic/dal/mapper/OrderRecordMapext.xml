@@ -5,33 +5,81 @@
 
   <select id="selectTodayOrderCount" resultType="java.lang.Integer">
     select count(1) from order_record where to_days(gmt_create)= to_days(now())
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 
   <select id="selectMonthOrderCount" resultType="java.lang.Integer">
     select count(1) from order_record where date_format(gmt_create, '%Y%m') = date_format(curdate() ,'%Y%m')
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 
   <select id="selectLastTodayOrderCount" resultType="java.lang.Integer">
-    select count(1) from order_record where to_days(now())-todays(gmt_create) <![CDATA[<=]]> 1
+    select count(1) from order_record where to_days(now())-to_days(gmt_create) <![CDATA[<=]]> 1
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 
   <select id="selectLastMonthOrderCount" resultType="java.lang.Integer">
     select count(1) from order_record where period_diff(date_format(now(),'%Y%m'),date_format(gmt_create,'%Y%m')) = 1
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 
   <select id="selectTodayRebateCount" resultType="java.lang.Double">
-    select sum(rebate) from order_record where to_days(gmt_create)= to_days(now())
+    select COALESCE(sum(rebate),0) from order_record where to_days(gmt_create)= to_days(now())
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 
   <select id="selectMonthRebateCount" resultType="java.lang.Double">
-    select sum(rebate) from order_record where date_format(gmt_create, '%Y%m') = date_format(curdate() ,'%Y%m')
+    select COALESCE(sum(rebate),0) from order_record where date_format(gmt_create, '%Y%m') = date_format(curdate() ,'%Y%m')
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 
   <select id="selectLastTodayRebateCount" resultType="java.lang.Double">
-    select sum(rebate) from order_record where to_days(now())-todays(gmt_create) <![CDATA[<=]]> 1
+    select COALESCE(sum(rebate),0) from order_record where to_days(now())-to_days(gmt_create) <![CDATA[<=]]> 1
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 
   <select id="selectLastMonthRebateCount" resultType="java.lang.Double">
-    select sum(rebate) from order_record where period_diff(date_format(now(),'%Y%m'),date_format(gmt_create,'%Y%m')) = 1
+    select COALESCE(sum(rebate),0) from order_record where period_diff(date_format(now(),'%Y%m'),date_format(gmt_create,'%Y%m')) = 1
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
   </select>
 </mapper>
