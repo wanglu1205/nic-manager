@@ -23,7 +23,7 @@ public class CardListVo {
     @ApiModelProperty("卡号")
     private String number;
 
-    @ApiModelProperty("剩余流量")
+    /*@ApiModelProperty("剩余流量")
     private BigDecimal residualFlowValue;
 
     @ApiModelProperty("本月已用")
@@ -33,6 +33,6 @@ public class CardListVo {
     private String totalUsedValue;
 
     @ApiModelProperty("状态")
-    private String status;
+    private String status;*/
 
 }

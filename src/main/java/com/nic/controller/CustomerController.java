@@ -74,4 +74,9 @@ public class CustomerController {
     public RestResponse<Boolean> login(@ApiParam(hidden = true) @LoginToken String token) {
         return RestResponse.success(customerService.logout(token));
     }
+
+    @GetMapping("/wx/userInfo")
+    public String userInfo(@RequestParam("code") String code, @RequestParam("state") String returnUrl) {
+        return  "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&" + code + "=CODE&grant_type=authorization_code";
+    }
 }

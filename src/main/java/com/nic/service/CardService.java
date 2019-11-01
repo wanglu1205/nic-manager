@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.hmf.common.http.LoadBalanceAsyncHttpClient;
+import com.nic.auth.AuthConstants;
 import com.nic.common.model.PageResult;
 import com.nic.common.model.dto.CardListDto;
 import com.nic.common.model.vo.CardListVo;
@@ -63,34 +64,38 @@ public class CardService {
     private String CARD_STATUS_URL;
 
     public PageResult<CardListVo> list(CardListDto dto, String token) {
-        Customer customer = null;
-        if (Objects.isNull(dto.getCustomerId())){
-            customer = customerService.getInfoByToken(token);
-        }else {
-            customer = customerMapper.selectByPrimaryKey(dto.getCustomerId());
+        Customer loginer = customerService.getInfoByToken(token);
+        if (Objects.isNull(loginer)){
+            throw new AppException(ErrorCode.NOT_EXIST);
         }
-        String cardIds = customer.getCardIds();
-        if (Objects.isNull(cardIds)){
+        List<Long> cardIdList = new ArrayList<>();
+        String cardIds = loginer.getCardIds();
+        if (StringUtils.isNotBlank(cardIds)){
+            String[] ids = cardIds.split(",");
+            for (String id: ids){
+                cardIdList.add(Long.valueOf(id));
+            }
+        }
+        if (CollectionUtils.isEmpty(cardIdList)){
             return null;
-        }
-        List<Long> ids = new ArrayList<>();
-        for (String cardId : cardIds.split(",")){
-            ids.add(Long.valueOf(cardId));
         }
         Page<CustomerListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andIdIn(ids);
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount)){
+            criteria.andIdIn(cardIdList);
+        }
         List<Card> cards = cardMapper.selectByExample(cardExample);
         List<CardListVo> vos = new ArrayList<>();
         for (Card card : cards) {
             CardListVo vo = new CardListVo();
             vo.setId(card.getId());
-            vo.setName(customer.getName());
+            vo.setName(loginer.getName());
             vo.setNumber(card.getNumber());
-            vo.setResidualFlowValue(card.getResidualFlowValue());
+            /*vo.setResidualFlowValue(card.getResidualFlowValue());
             vo.setMonthUsedValue(card.getMonthUsedValue());
             vo.setTotalUsedValue(card.getTotalUsedValue());
-            vo.setStatus(card.getStatus());
+            vo.setStatus(card.getStatus());*/
             vos.add(vo);
         }
         return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);

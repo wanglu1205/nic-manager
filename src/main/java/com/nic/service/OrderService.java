@@ -1,10 +1,18 @@
 package com.nic.service;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.hmf.common.http.LoadBalanceAsyncHttpClient;
+import com.nic.auth.AuthConstants;
 import com.nic.common.enums.RechargeStatusEnum;
+import com.nic.common.model.PageResult;
+import com.nic.common.model.dto.OrderListDto;
+import com.nic.common.model.dto.PackageListDto;
 import com.nic.common.model.dto.RechargeDto;
 import com.nic.common.model.vo.CardRechargeVo;
+import com.nic.common.model.vo.CustomerListVo;
+import com.nic.common.model.vo.OrderListVo;
 import com.nic.config.AppException;
 import com.nic.config.ErrorCode;
 import com.nic.dal.entity.Package;
@@ -211,5 +219,45 @@ public class OrderService {
                     }
                     return false;
                 }).collect(Collectors.toList());
+    }
+
+    public PageResult<OrderListVo> list(OrderListDto dto, String token) {
+        Customer loginer = customerService.getInfoByToken(token);
+        if (Objects.isNull(loginer)){
+            throw new AppException(ErrorCode.NOT_EXIST);
+        }
+        List<Long> cardIdList = new ArrayList<>();
+        String cardIds = loginer.getCardIds();
+        if (StringUtils.isNotBlank(cardIds)){
+            String[] ids = cardIds.split(",");
+            for (String id: ids){
+                cardIdList.add(Long.valueOf(id));
+            }
+        }
+        if (CollectionUtils.isEmpty(cardIdList)){
+            return null;
+        }
+        Page<OrderListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
+        OrderRecordExample example = new OrderRecordExample();
+        OrderRecordExample.Criteria criteria = example.createCriteria();
+        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount)){
+            criteria.andCardIdIn(cardIdList);
+        }
+        List<OrderRecord> orderRecords = orderRecordMapper.selectByExample(example);
+
+        List<OrderListVo> vos = new ArrayList<>();
+        orderRecords.forEach(orderRecord -> {
+            OrderListVo vo = new OrderListVo();
+            vo.setOrderNumber(orderRecord.getOrderNumber());
+            Card card = cardMapper.selectByPrimaryKey(orderRecord.getCardId());
+            if (Objects.nonNull(card)){
+                vo.setNumber(card.getNumber());
+            }
+            vo.setCreateTime(orderRecord.getGmtCreate());
+            vo.setMoney(orderRecord.getMoney());
+            vo.setRemark(orderRecord.getRemark());
+            vos.add(vo);
+        });
+        return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);
     }
 }

@@ -2,6 +2,7 @@ package com.nic.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.nic.auth.AuthConstants;
 import com.nic.common.model.PageResult;
 import com.nic.common.model.dto.RebateRecordListDto;
 import com.nic.common.model.dto.RebateRuleSaveDto;
@@ -50,6 +51,9 @@ public class RebateService {
     @Resource
     private OrderRecordMapper orderRecordMapper;
 
+    @Resource
+    private CustomerService customerService;
+
     public Boolean ruleSave(RebateRuleSaveDto dto) {
         List<Long> customerIds = dto.getCustomerIds();
         Date date = new Date();
@@ -71,9 +75,27 @@ public class RebateService {
         return true;
     }
 
-    public PageResult<RebateRecordListVo> recordList(RebateRecordListDto dto) {
+    public PageResult<RebateRecordListVo> recordList(RebateRecordListDto dto, String token) {
+        Customer loginer = customerService.getInfoByToken(token);
+        if (Objects.isNull(loginer)){
+            throw new AppException(ErrorCode.NOT_EXIST);
+        }
+        List<Long> cardIdList = new ArrayList<>();
+        String cardIds = loginer.getCardIds();
+        if (StringUtils.isNotBlank(cardIds)){
+            String[] ids = cardIds.split(",");
+            for (String id: ids){
+                cardIdList.add(Long.valueOf(id));
+            }
+        }
+        if (CollectionUtils.isEmpty(cardIdList)){
+            return null;
+        }
         RebateRecordExample rebateRecordExample = new RebateRecordExample();
         RebateRecordExample.Criteria criteria = rebateRecordExample.createCriteria();
+        if (!StringUtils.equals(loginer.getAccount(),AuthConstants.superAdminAccount)){
+            criteria.andCardIdIn(cardIdList);
+        }
         if (StringUtils.isNotBlank(dto.getName())){
             CustomerExample customerExample = new CustomerExample();
             customerExample.createCriteria().andNameLike("%" + dto.getName() + "%");

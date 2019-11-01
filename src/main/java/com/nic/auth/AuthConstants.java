@@ -8,4 +8,6 @@ public class AuthConstants {
     public static final String UUID="uuid";
 
     public static final String testToken = "17e1a8c3d56dc7b9c103402546d4920e";
+
+    public static final String superAdminAccount = "admin";
 }

@@ -51,6 +51,6 @@ public class RebateController {
     @ApiOperation(httpMethod = "POST", value = "返利记录列表")
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
     public RestResponse<PageResult<RebateRecordListVo>> recordList(@RequestBody RebateRecordListDto dto, @ApiParam(hidden = true) @LoginToken String token) {
-        return RestResponse.success(rebateService.recordList(dto));
+        return RestResponse.success(rebateService.recordList(dto, token));
     }
 }

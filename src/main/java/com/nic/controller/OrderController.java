@@ -2,7 +2,12 @@ package com.nic.controller;
 
 import com.nic.auth.AuthConstants;
 import com.nic.auth.LoginToken;
+import com.nic.common.model.PageResult;
+import com.nic.common.model.dto.OrderListDto;
+import com.nic.common.model.dto.PackageListDto;
 import com.nic.common.model.dto.RechargeDto;
+import com.nic.common.model.vo.OrderListVo;
+import com.nic.common.model.vo.PackageListVo;
 import com.nic.config.AppException;
 import com.nic.config.ErrorCode;
 import com.nic.config.RestResponse;
@@ -41,5 +46,12 @@ public class OrderController {
             throw new AppException(ErrorCode.ERR_PARAM);
         }
         return RestResponse.success(orderService.recharge(dto, token));
+    }
+
+    @PostMapping("/list")
+    @ApiOperation(httpMethod = "POST", value = "列表")
+    @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
+    public RestResponse<PageResult<OrderListVo>> list(@RequestBody OrderListDto dto, @ApiParam(hidden = true) @LoginToken String token) {
+        return RestResponse.success(orderService.list(dto, token));
     }
 }
