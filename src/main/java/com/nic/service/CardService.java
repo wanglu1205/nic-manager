@@ -126,7 +126,7 @@ public class CardService {
         List<Param> params = new ArrayList<>();
         params.add(new Param("iccid", number));
         try {
-            result = loadBalanceAsyncHttpClient.simplePostParams(HOST + CARD_STATUS_URL, params, 5000L, TimeUnit.MILLISECONDS);
+            result = loadBalanceAsyncHttpClient.simplePostParams(HOST + CARD_STATUS_URL, params, 60000L, TimeUnit.MILLISECONDS);
             logger.info("状态查询返回结果：{}", result);
         } catch (Exception e) {
             e.printStackTrace();

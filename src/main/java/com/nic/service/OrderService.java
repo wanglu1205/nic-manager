@@ -11,6 +11,7 @@ import com.nic.common.model.dto.OrderListDto;
 import com.nic.common.model.dto.PackageListDto;
 import com.nic.common.model.dto.RechargeDto;
 import com.nic.common.model.vo.CardRechargeVo;
+import com.nic.common.model.vo.CardStatusVo;
 import com.nic.common.model.vo.CustomerListVo;
 import com.nic.common.model.vo.OrderListVo;
 import com.nic.config.AppException;
@@ -98,12 +99,19 @@ public class OrderService {
         //生成订单
         OrderRecord order = new OrderRecord();
 
+        String msisdn = card.getMsisdn();
+        if (StringUtils.isBlank(msisdn)){
+            CardStatusVo cardStatus = cardService.getCardStatus(card.getNumber());
+            if (Objects.nonNull(cardStatus)){
+                msisdn = cardStatus.getMSISDN();
+            }
+        }
         //调用充值接口
-        String result = recharge(p.getPrice(), customer, card.getMsisdn());
+        String result = recharge(p.getPrice(), customer, msisdn);
 
         BigDecimal totalMoney = new BigDecimal(0);
         boolean isRechargeSuccess = true;
-        boolean isRebateSuccess = true;
+        boolean isRebateSuccess = false;
         if (StringUtils.isBlank(result)){
             isRechargeSuccess = false;
         }else {
@@ -199,7 +207,7 @@ public class OrderService {
         params.add(new Param("amount", String.valueOf(price)));
         params.add(new Param("groupid", customer.getGroupNumber()));
         try {
-            result = loadBalanceAsyncHttpClient.simplePostParams(HOST + CARD_RECHARGE_URL, params, 5000L, TimeUnit.MILLISECONDS);
+            result = loadBalanceAsyncHttpClient.simplePostParams(HOST + CARD_RECHARGE_URL, params, 60000L, TimeUnit.MILLISECONDS);
             logger.info("状态查询返回结果：{}", result);
         } catch (Exception e) {
             e.printStackTrace();
