@@ -6,7 +6,7 @@ spring:
     url: jdbc:mysql://112.33.22.155:3306/nic?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     driverClassName: com.mysql.jdbc.Driver
     username: root
-    password: passw0rd
+    password: Rld@123456
 
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
