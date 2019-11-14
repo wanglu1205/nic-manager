@@ -242,13 +242,10 @@ public class OrderService {
                 cardIdList.add(Long.valueOf(id));
             }
         }
-        if (CollectionUtils.isEmpty(cardIdList)){
-            return null;
-        }
         Page<OrderListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
         OrderRecordExample example = new OrderRecordExample();
         OrderRecordExample.Criteria criteria = example.createCriteria();
-        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount)){
+        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount) && !CollectionUtils.isEmpty(cardIdList)){
             criteria.andCardIdIn(cardIdList);
         }
         List<OrderRecord> orderRecords = orderRecordMapper.selectByExample(example);

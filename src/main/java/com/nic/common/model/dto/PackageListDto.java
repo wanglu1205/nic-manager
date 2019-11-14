@@ -11,7 +11,7 @@ import lombok.Data;
  * @description:
  * @since : 1.0
  */
-@ApiModel("客户列表查询对象")
+@ApiModel("套餐列表查询对象")
 @Data
 public class PackageListDto extends PageQuery {
 

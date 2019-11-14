@@ -11,32 +11,32 @@ public class Customer implements Serializable {
     private Long id;
 
     /**
-     * 用户账户
+     * 
      */
     private String account;
 
     /**
-     * 用户密码
+     * 
      */
     private String password;
 
     /**
-     * 真实姓名
+     * 
      */
     private String name;
 
     /**
-     * 联系电话
+     * 
      */
     private String tel;
 
     /**
-     * 电子邮箱
+     * 
      */
     private String email;
 
     /**
-     * 父级主键
+     * 
      */
     private Long parentId;
 
@@ -51,22 +51,22 @@ public class Customer implements Serializable {
     private Date gmtModified;
 
     /**
-     * 支付宝账号
+     * 
      */
     private String alipayAccount;
 
     /**
-     * 支付宝户名
+     * 
      */
     private String alipayName;
 
     /**
-     * 佣金
+     * 
      */
     private BigDecimal commission;
 
     /**
-     * 信用
+     * 
      */
     private Integer credit;
 
@@ -76,24 +76,24 @@ public class Customer implements Serializable {
     private String token;
 
     /**
-     * 是否启用
+     * 
      */
-    private Boolean isEnabled;
+    private String openId;
 
     /**
-     * 微信支付appid
-     */
-    private String appId;
-
-    /**
-     * 所属互联网卡id集合，英文逗号分隔
+     * 
      */
     private String cardIds;
 
     /**
-     * 集团客户编号
+     * 
      */
     private String groupNumber;
+
+    /**
+     * 
+     */
+    private Boolean isEnabled;
 
     /**
      * customer
@@ -117,96 +117,96 @@ public class Customer implements Serializable {
     }
 
     /**
-     * 用户账户
-     * @return account 用户账户
+     * 
+     * @return account 
      */
     public String getAccount() {
         return account;
     }
 
     /**
-     * 用户账户
-     * @param account 用户账户
+     * 
+     * @param account 
      */
     public void setAccount(String account) {
         this.account = account == null ? null : account.trim();
     }
 
     /**
-     * 用户密码
-     * @return password 用户密码
+     * 
+     * @return password 
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * 用户密码
-     * @param password 用户密码
+     * 
+     * @param password 
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
     }
 
     /**
-     * 真实姓名
-     * @return name 真实姓名
+     * 
+     * @return name 
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 真实姓名
-     * @param name 真实姓名
+     * 
+     * @param name 
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
 
     /**
-     * 联系电话
-     * @return tel 联系电话
+     * 
+     * @return tel 
      */
     public String getTel() {
         return tel;
     }
 
     /**
-     * 联系电话
-     * @param tel 联系电话
+     * 
+     * @param tel 
      */
     public void setTel(String tel) {
         this.tel = tel == null ? null : tel.trim();
     }
 
     /**
-     * 电子邮箱
-     * @return email 电子邮箱
+     * 
+     * @return email 
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * 电子邮箱
-     * @param email 电子邮箱
+     * 
+     * @param email 
      */
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
     }
 
     /**
-     * 父级主键
-     * @return parent_id 父级主键
+     * 
+     * @return parent_id 
      */
     public Long getParentId() {
         return parentId;
     }
 
     /**
-     * 父级主键
-     * @param parentId 父级主键
+     * 
+     * @param parentId 
      */
     public void setParentId(Long parentId) {
         this.parentId = parentId;
@@ -245,64 +245,64 @@ public class Customer implements Serializable {
     }
 
     /**
-     * 支付宝账号
-     * @return alipay_account 支付宝账号
+     * 
+     * @return alipay_account 
      */
     public String getAlipayAccount() {
         return alipayAccount;
     }
 
     /**
-     * 支付宝账号
-     * @param alipayAccount 支付宝账号
+     * 
+     * @param alipayAccount 
      */
     public void setAlipayAccount(String alipayAccount) {
         this.alipayAccount = alipayAccount == null ? null : alipayAccount.trim();
     }
 
     /**
-     * 支付宝户名
-     * @return alipay_name 支付宝户名
+     * 
+     * @return alipay_name 
      */
     public String getAlipayName() {
         return alipayName;
     }
 
     /**
-     * 支付宝户名
-     * @param alipayName 支付宝户名
+     * 
+     * @param alipayName 
      */
     public void setAlipayName(String alipayName) {
         this.alipayName = alipayName == null ? null : alipayName.trim();
     }
 
     /**
-     * 佣金
-     * @return commission 佣金
+     * 
+     * @return commission 
      */
     public BigDecimal getCommission() {
         return commission;
     }
 
     /**
-     * 佣金
-     * @param commission 佣金
+     * 
+     * @param commission 
      */
     public void setCommission(BigDecimal commission) {
         this.commission = commission;
     }
 
     /**
-     * 信用
-     * @return credit 信用
+     * 
+     * @return credit 
      */
     public Integer getCredit() {
         return credit;
     }
 
     /**
-     * 信用
-     * @param credit 信用
+     * 
+     * @param credit 
      */
     public void setCredit(Integer credit) {
         this.credit = credit;
@@ -325,72 +325,72 @@ public class Customer implements Serializable {
     }
 
     /**
-     * 是否启用
-     * @return is_enabled 是否启用
+     * 
+     * @return open_id 
      */
-    public Boolean getIsEnabled() {
-        return isEnabled;
+    public String getOpenId() {
+        return openId;
     }
 
     /**
-     * 是否启用
-     * @param isEnabled 是否启用
+     * 
+     * @param openId 
      */
-    public void setIsEnabled(Boolean isEnabled) {
-        this.isEnabled = isEnabled;
+    public void setOpenId(String openId) {
+        this.openId = openId == null ? null : openId.trim();
     }
 
     /**
-     * 微信支付appid
-     * @return app_id 微信支付appid
-     */
-    public String getAppId() {
-        return appId;
-    }
-
-    /**
-     * 微信支付appid
-     * @param appId 微信支付appid
-     */
-    public void setAppId(String appId) {
-        this.appId = appId == null ? null : appId.trim();
-    }
-
-    /**
-     * 所属互联网卡id集合，英文逗号分隔
-     * @return card_ids 所属互联网卡id集合，英文逗号分隔
+     * 
+     * @return card_ids 
      */
     public String getCardIds() {
         return cardIds;
     }
 
     /**
-     * 所属互联网卡id集合，英文逗号分隔
-     * @param cardIds 所属互联网卡id集合，英文逗号分隔
+     * 
+     * @param cardIds 
      */
     public void setCardIds(String cardIds) {
         this.cardIds = cardIds == null ? null : cardIds.trim();
     }
 
     /**
-     * 集团客户编号
-     * @return group_number 集团客户编号
+     * 
+     * @return group_number 
      */
     public String getGroupNumber() {
         return groupNumber;
     }
 
     /**
-     * 集团客户编号
-     * @param groupNumber 集团客户编号
+     * 
+     * @param groupNumber 
      */
     public void setGroupNumber(String groupNumber) {
         this.groupNumber = groupNumber == null ? null : groupNumber.trim();
     }
 
     /**
+     * 
+     * @return is_enabled 
+     */
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    /**
+     * 
+     * @param isEnabled 
+     */
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     @Override
     public String toString() {
@@ -412,10 +412,10 @@ public class Customer implements Serializable {
         sb.append(", commission=").append(commission);
         sb.append(", credit=").append(credit);
         sb.append(", token=").append(token);
-        sb.append(", isEnabled=").append(isEnabled);
-        sb.append(", appId=").append(appId);
+        sb.append(", openId=").append(openId);
         sb.append(", cardIds=").append(cardIds);
         sb.append(", groupNumber=").append(groupNumber);
+        sb.append(", isEnabled=").append(isEnabled);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

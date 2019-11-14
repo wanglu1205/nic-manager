@@ -6,6 +6,7 @@ import com.nic.common.model.PageResult;
 import com.nic.common.model.dto.CustomerListDto;
 import com.nic.common.model.dto.CustomerSaveDto;
 import com.nic.common.model.dto.LoginDto;
+import com.nic.common.model.dto.WxBindingDto;
 import com.nic.common.model.vo.CustomerListVo;
 import com.nic.config.AppException;
 import com.nic.config.ErrorCode;
@@ -16,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,6 +41,9 @@ public class CustomerController {
     @ApiOperation(httpMethod = "POST", value = "列表")
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
     public RestResponse<PageResult<CustomerListVo>> list(@RequestBody CustomerListDto dto, @ApiParam(hidden = true) @LoginToken String token) {
+        if (Objects.isNull(dto) || StringUtils.isBlank(dto.getType())){
+            throw new AppException(ErrorCode.ERR_PARAM);
+        }
         return RestResponse.success(customerService.list(dto, token));
     }
 
@@ -75,8 +80,9 @@ public class CustomerController {
         return RestResponse.success(customerService.logout(token));
     }
 
-    @GetMapping("/wx/userInfo")
-    public String userInfo(@RequestParam("code") String code, @RequestParam("state") String returnUrl) {
-        return  "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&" + code + "=CODE&grant_type=authorization_code";
+    @PostMapping("/wx/binding")
+    @ApiOperation(httpMethod = "POST", value = "微信绑定")
+    public RestResponse<Boolean> wxBinding(@RequestBody WxBindingDto dto) {
+        return RestResponse.success(customerService.wxBinding(dto));
     }
 }

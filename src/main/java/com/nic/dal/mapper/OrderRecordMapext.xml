@@ -82,4 +82,44 @@
       </foreach>
     </if>
   </select>
+
+    <select id="selectTodayListByCardIds" resultType="com.nic.dal.entity.OrderRecord">
+      select * from order_record where to_days(gmt_create)= to_days(now())
+      <if test="cardIdList != null">
+        AND card_id IN
+        <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+          #{cardId}
+        </foreach>
+      </if>
+    </select>
+
+  <select id="selectMonthListByCardIds" resultType="com.nic.dal.entity.OrderRecord">
+    select * from order_record where date_format(gmt_create, '%Y%m') = date_format(curdate() ,'%Y%m')
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="selectYesterdayListByCardIds" resultType="com.nic.dal.entity.OrderRecord">
+    select * from order_record where to_days(now())-to_days(gmt_create) <![CDATA[<=]]> 1
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="selectLastMonthListByCardIds" resultType="com.nic.dal.entity.OrderRecord">
+    select * from order_record where period_diff(date_format(now(),'%Y%m'),date_format(gmt_create,'%Y%m')) = 1
+    <if test="cardIdList != null">
+      AND card_id IN
+      <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
+        #{cardId}
+      </foreach>
+    </if>
+  </select>
 </mapper>

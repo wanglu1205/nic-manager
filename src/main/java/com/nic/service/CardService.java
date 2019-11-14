@@ -76,13 +76,10 @@ public class CardService {
                 cardIdList.add(Long.valueOf(id));
             }
         }
-        if (CollectionUtils.isEmpty(cardIdList)){
-            return null;
-        }
         Page<CustomerListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount)){
+        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount) && !CollectionUtils.isEmpty(cardIdList)){
             criteria.andIdIn(cardIdList);
         }
         List<Card> cards = cardMapper.selectByExample(cardExample);

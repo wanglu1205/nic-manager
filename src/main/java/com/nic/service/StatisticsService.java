@@ -1,6 +1,7 @@
 package com.nic.service;
 
 import com.nic.auth.AuthConstants;
+import com.nic.common.enums.CustomerStatisticsEnum;
 import com.nic.common.model.vo.CustomerVo;
 import com.nic.common.model.vo.ProfitVo;
 import com.nic.config.AppException;
@@ -140,7 +141,7 @@ public class StatisticsService {
         }
     }
 
-    public List<CustomerVo> customer(String token) {
+    public List<CustomerVo> customer(String token, String type) {
         Customer customer = customerService.getInfoByToken(token);
         if (Objects.isNull(customer)){
             throw new AppException(ErrorCode.NOT_EXIST);
@@ -168,10 +169,22 @@ public class StatisticsService {
             if (CollectionUtils.isEmpty(cardIdList)){
                 return;
             }
-
-            OrderRecordExample orderRecordExample = new OrderRecordExample();
-            orderRecordExample.createCriteria().andCardIdIn(cardIdList);
-            List<OrderRecord> orderRecords = orderRecordMapper.selectByExample(orderRecordExample);
+            List<OrderRecord> orderRecords = new ArrayList<>();
+            switch (CustomerStatisticsEnum.getEnumByCode(type)){
+                case today:
+                    orderRecords = orderRecordMapext.selectTodayListByCardIds(cardIdList);
+                    break;
+                case month:
+                    orderRecords = orderRecordMapext.selectMonthListByCardIds(cardIdList);
+                    break;
+                case yesterday:
+                    orderRecords = orderRecordMapext.selectYesterdayListByCardIds(cardIdList);
+                    break;
+                case last_month:
+                    orderRecords = orderRecordMapext.selectLastMonthListByCardIds(cardIdList);
+                    break;
+                    default:
+            }
 
             BigDecimal rebateCount = orderRecords.stream().map(OrderRecord::getRebate).reduce(BigDecimal.ZERO, BigDecimal::add);
 

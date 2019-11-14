@@ -1,5 +1,8 @@
 package com.nic.dal.mapper;
 
+import com.nic.dal.entity.OrderRecord;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface OrderRecordMapext {
@@ -19,4 +22,12 @@ public interface OrderRecordMapext {
     double selectLastTodayRebateCount(List<Long> cardIdList);
 
     double selectLastMonthRebateCount(List<Long> cardIdList);
+
+    List<OrderRecord> selectTodayListByCardIds(@Param("cardIdList") List<Long> cardIdList);
+
+    List<OrderRecord> selectMonthListByCardIds(@Param("cardIdList") List<Long> cardIdList);
+
+    List<OrderRecord> selectYesterdayListByCardIds(@Param("cardIdList") List<Long> cardIdList);
+
+    List<OrderRecord> selectLastMonthListByCardIds(@Param("cardIdList") List<Long> cardIdList);
 }

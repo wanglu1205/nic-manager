@@ -2,10 +2,12 @@ package com.nic.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.nic.common.enums.CustomerTypeEnum;
 import com.nic.common.model.PageResult;
 import com.nic.common.model.dto.CustomerListDto;
 import com.nic.common.model.dto.CustomerSaveDto;
 import com.nic.common.model.dto.LoginDto;
+import com.nic.common.model.dto.WxBindingDto;
 import com.nic.common.model.vo.CustomerListVo;
 import com.nic.common.util.RandomCodeUtil;
 import com.nic.config.AppException;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @auther: wl
@@ -42,23 +45,84 @@ public class CustomerService {
 
 
     public PageResult<CustomerListVo> list(CustomerListDto dto, String token) {
-        Customer customer = null;
-        if (Objects.isNull(dto.getId())){
-            customer = getInfoByToken(token);
-        }else {
-            customer = customerMapper.selectByPrimaryKey(dto.getId());
+        Customer customer = getInfoByToken(token);
+        if (Objects.isNull(customer)){
+            throw new AppException(ErrorCode.NOT_EXIST);
         }
-        Page<CustomerListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
-        CustomerExample customerExample = new CustomerExample();
-        CustomerExample.Criteria criteria = customerExample.createCriteria();
-        criteria.andParentIdEqualTo(customer.getId());
-        if (StringUtils.isNotBlank(dto.getAccount())) {
-            criteria.andAccountLike("%" + dto.getAccount() + "%");
-        }
-        List<Customer> customers = customerMapper.selectByExample(customerExample);
 
+        switch (CustomerTypeEnum.getEnumByCode(dto.getType())){
+            case one:
+                Page<CustomerListVo> page1 = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
+                CustomerExample ce1 = new CustomerExample();
+                CustomerExample.Criteria criteria = ce1.createCriteria();
+                criteria.andParentIdEqualTo(customer.getId());
+                if (StringUtils.isNotBlank(dto.getAccount())) {
+                    criteria.andAccountLike("%" + dto.getAccount() + "%");
+                }
+                List<Customer> cs1 = customerMapper.selectByExample(ce1);
+                if (CollectionUtils.isEmpty(cs1)){
+                    return null;
+                }
+                return new PageResult<>(page1.getPageNum(), page1.getPageSize(), page1.getTotal(), getCustomerListVos(cs1));
+            case two:
+                CustomerExample ce2 = new CustomerExample();
+                ce2.createCriteria().andParentIdEqualTo(customer.getId());
+                List<Customer> cs2 = customerMapper.selectByExample(ce2);
+                if (CollectionUtils.isEmpty(cs2)){
+                    return null;
+                }
+                List<Long> ids1 = cs2.stream().map(Customer::getId).collect(Collectors.toList());
+
+                ce2.clear();
+                CustomerExample.Criteria criteria1 = ce2.createCriteria();
+                criteria1.andParentIdIn(ids1);
+                if (StringUtils.isNotBlank(dto.getAccount())) {
+                    criteria1.andAccountLike("%" + dto.getAccount() + "%");
+                }
+                Page<CustomerListVo> page2 = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
+                List<Customer> cs3 = customerMapper.selectByExample(ce2);
+                if (CollectionUtils.isEmpty(cs3)){
+                    return null;
+                }
+                return new PageResult<>(page2.getPageNum(), page2.getPageSize(), page2.getTotal(), getCustomerListVos(cs3));
+            case three:
+                CustomerExample ce3 = new CustomerExample();
+                ce3.createCriteria().andParentIdEqualTo(customer.getId());
+                List<Customer> cs4 = customerMapper.selectByExample(ce3);
+                if (CollectionUtils.isEmpty(cs4)){
+                    return null;
+                }
+                List<Long> ids2 = cs4.stream().map(Customer::getId).collect(Collectors.toList());
+
+                ce3.clear();
+                ce3.createCriteria().andParentIdIn(ids2);
+                List<Customer> cs5 = customerMapper.selectByExample(ce3);
+                if (CollectionUtils.isEmpty(cs5)){
+                    return null;
+                }
+                List<Long> ids3 = cs5.stream().map(Customer::getId).collect(Collectors.toList());
+
+                ce3.clear();
+                CustomerExample.Criteria criteria2 = ce3.createCriteria();
+                criteria2.andParentIdIn(ids3);
+                if (StringUtils.isNotBlank(dto.getAccount())) {
+                    criteria2.andAccountLike("%" + dto.getAccount() + "%");
+                }
+                Page<CustomerListVo> page3 = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
+                List<Customer> cs6 = customerMapper.selectByExample(ce3);
+                if (CollectionUtils.isEmpty(cs6)){
+                    return null;
+                }
+                return new PageResult<>(page3.getPageNum(), page3.getPageSize(), page3.getTotal(), getCustomerListVos(cs6));
+            default:
+
+        }
+        return null;
+    }
+
+    private List<CustomerListVo> getCustomerListVos(List<Customer> cs1) {
         List<CustomerListVo> vos = new ArrayList<>();
-        customers.forEach(c -> {
+        cs1.forEach(c -> {
             CustomerListVo vo = new CustomerListVo();
             vo.setId(c.getId());
             vo.setAccount(c.getAccount());
@@ -78,7 +142,7 @@ public class CustomerService {
             vo.setIsEnabled(c.getIsEnabled());
             vos.add(vo);
         });
-        return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);
+        return vos;
     }
 
     public Customer getInfoByToken(String token) {
@@ -163,5 +227,13 @@ public class CustomerService {
         Customer customer = customerMapper.selectByPrimaryKey(id);
         customer.setPassword(null);
         return customer;
+    }
+
+    public Boolean wxBinding(WxBindingDto dto) {
+        Customer customer = new Customer();
+        customer.setId(dto.getCustomerId());
+        customer.setOpenId(dto.getOpenid());
+        customerMapper.updateByPrimaryKeySelective(customer);
+        return true;
     }
 }

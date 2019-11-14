@@ -18,7 +18,6 @@ public class CustomerListDto extends PageQuery {
     @ApiModelProperty("账户")
     private String account;
 
-    @ApiModelProperty("主键")
-    private Long id;
-
+    @ApiModelProperty("类型")
+    private String type;
 }

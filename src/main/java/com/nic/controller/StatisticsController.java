@@ -41,7 +41,7 @@ public class StatisticsController {
     @PostMapping("/customer")
     @ApiOperation(httpMethod = "POST", value = "代理统计")
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
-    public RestResponse<List<CustomerVo>> customer(@ApiParam(hidden = true) @LoginToken String token) {
-        return RestResponse.success(statisticsService.customer(token));
+    public RestResponse<List<CustomerVo>> customer(@ApiParam(hidden = true) @LoginToken String token, String type) {
+        return RestResponse.success(statisticsService.customer(token, type));
     }
 }

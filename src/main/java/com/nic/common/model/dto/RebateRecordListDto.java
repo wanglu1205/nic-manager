@@ -1,6 +1,7 @@
 package com.nic.common.model.dto;
 
 import com.nic.common.model.PageQuery;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * @description:
  * @since : 1.0
  */
+@ApiModel("返利列表查询对象")
 @Data
 public class RebateRecordListDto extends PageQuery {
 

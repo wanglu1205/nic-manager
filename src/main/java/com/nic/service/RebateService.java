@@ -88,12 +88,9 @@ public class RebateService {
                 cardIdList.add(Long.valueOf(id));
             }
         }
-        if (CollectionUtils.isEmpty(cardIdList)){
-            return null;
-        }
         RebateRecordExample rebateRecordExample = new RebateRecordExample();
         RebateRecordExample.Criteria criteria = rebateRecordExample.createCriteria();
-        if (!StringUtils.equals(loginer.getAccount(),AuthConstants.superAdminAccount)){
+        if (!StringUtils.equals(loginer.getAccount(),AuthConstants.superAdminAccount) && !CollectionUtils.isEmpty(cardIdList)){
             criteria.andCardIdIn(cardIdList);
         }
         if (StringUtils.isNotBlank(dto.getName())){

@@ -23,7 +23,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public CustomerExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -31,7 +31,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -39,7 +39,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -47,7 +47,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -55,7 +55,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public boolean isDistinct() {
         return distinct;
@@ -63,7 +63,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -71,7 +71,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -79,7 +79,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -89,7 +89,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -101,7 +101,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -110,7 +110,7 @@ public class CustomerExample {
 
     /**
      *
-     * @mbggenerated 2019-10-23
+     * @mbggenerated 2019-11-14
      */
     public void clear() {
         oredCriteria.clear();
@@ -119,7 +119,7 @@ public class CustomerExample {
     }
 
     /**
-     * customer 2019-10-23
+     * customer 2019-11-14
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1082,133 +1082,73 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledIsNull() {
-            addCriterion("is_enabled is null");
+        public Criteria andOpenIdIsNull() {
+            addCriterion("open_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledIsNotNull() {
-            addCriterion("is_enabled is not null");
+        public Criteria andOpenIdIsNotNull() {
+            addCriterion("open_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledEqualTo(Boolean value) {
-            addCriterion("is_enabled =", value, "isEnabled");
+        public Criteria andOpenIdEqualTo(String value) {
+            addCriterion("open_id =", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledNotEqualTo(Boolean value) {
-            addCriterion("is_enabled <>", value, "isEnabled");
+        public Criteria andOpenIdNotEqualTo(String value) {
+            addCriterion("open_id <>", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledGreaterThan(Boolean value) {
-            addCriterion("is_enabled >", value, "isEnabled");
+        public Criteria andOpenIdGreaterThan(String value) {
+            addCriterion("open_id >", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("is_enabled >=", value, "isEnabled");
+        public Criteria andOpenIdGreaterThanOrEqualTo(String value) {
+            addCriterion("open_id >=", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledLessThan(Boolean value) {
-            addCriterion("is_enabled <", value, "isEnabled");
+        public Criteria andOpenIdLessThan(String value) {
+            addCriterion("open_id <", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledLessThanOrEqualTo(Boolean value) {
-            addCriterion("is_enabled <=", value, "isEnabled");
+        public Criteria andOpenIdLessThanOrEqualTo(String value) {
+            addCriterion("open_id <=", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledIn(List<Boolean> values) {
-            addCriterion("is_enabled in", values, "isEnabled");
+        public Criteria andOpenIdLike(String value) {
+            addCriterion("open_id like", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledNotIn(List<Boolean> values) {
-            addCriterion("is_enabled not in", values, "isEnabled");
+        public Criteria andOpenIdNotLike(String value) {
+            addCriterion("open_id not like", value, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_enabled between", value1, value2, "isEnabled");
+        public Criteria andOpenIdIn(List<String> values) {
+            addCriterion("open_id in", values, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnabledNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("is_enabled not between", value1, value2, "isEnabled");
+        public Criteria andOpenIdNotIn(List<String> values) {
+            addCriterion("open_id not in", values, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andAppIdIsNull() {
-            addCriterion("app_id is null");
+        public Criteria andOpenIdBetween(String value1, String value2) {
+            addCriterion("open_id between", value1, value2, "openId");
             return (Criteria) this;
         }
 
-        public Criteria andAppIdIsNotNull() {
-            addCriterion("app_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdEqualTo(String value) {
-            addCriterion("app_id =", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdNotEqualTo(String value) {
-            addCriterion("app_id <>", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdGreaterThan(String value) {
-            addCriterion("app_id >", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdGreaterThanOrEqualTo(String value) {
-            addCriterion("app_id >=", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdLessThan(String value) {
-            addCriterion("app_id <", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdLessThanOrEqualTo(String value) {
-            addCriterion("app_id <=", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdLike(String value) {
-            addCriterion("app_id like", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdNotLike(String value) {
-            addCriterion("app_id not like", value, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdIn(List<String> values) {
-            addCriterion("app_id in", values, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdNotIn(List<String> values) {
-            addCriterion("app_id not in", values, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdBetween(String value1, String value2) {
-            addCriterion("app_id between", value1, value2, "appId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAppIdNotBetween(String value1, String value2) {
-            addCriterion("app_id not between", value1, value2, "appId");
+        public Criteria andOpenIdNotBetween(String value1, String value2) {
+            addCriterion("open_id not between", value1, value2, "openId");
             return (Criteria) this;
         }
 
@@ -1351,6 +1291,66 @@ public class CustomerExample {
             addCriterion("group_number not between", value1, value2, "groupNumber");
             return (Criteria) this;
         }
+
+        public Criteria andIsEnabledIsNull() {
+            addCriterion("is_enabled is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledIsNotNull() {
+            addCriterion("is_enabled is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledEqualTo(Boolean value) {
+            addCriterion("is_enabled =", value, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledNotEqualTo(Boolean value) {
+            addCriterion("is_enabled <>", value, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledGreaterThan(Boolean value) {
+            addCriterion("is_enabled >", value, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_enabled >=", value, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledLessThan(Boolean value) {
+            addCriterion("is_enabled <", value, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_enabled <=", value, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledIn(List<Boolean> values) {
+            addCriterion("is_enabled in", values, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledNotIn(List<Boolean> values) {
+            addCriterion("is_enabled not in", values, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_enabled between", value1, value2, "isEnabled");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsEnabledNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_enabled not between", value1, value2, "isEnabled");
+            return (Criteria) this;
+        }
     }
 
     /**
@@ -1364,7 +1364,7 @@ public class CustomerExample {
     }
 
     /**
-     * customer 2019-10-23
+     * customer 2019-11-14
      */
     public static class Criterion {
         private String condition;
