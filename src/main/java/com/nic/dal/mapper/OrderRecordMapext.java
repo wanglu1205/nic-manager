@@ -7,21 +7,21 @@ import java.util.List;
 
 public interface OrderRecordMapext {
 
-    int selectTodayOrderCount(List<Long> cardIdList);
+    int selectTodayOrderCount(@Param("cardIdList") List<Long> cardIdList);
 
-    int selectMonthOrderCount(List<Long> cardIdList);
+    int selectMonthOrderCount(@Param("cardIdList") List<Long> cardIdList);
 
-    int selectLastTodayOrderCount(List<Long> cardIdList);
+    int selectLastTodayOrderCount(@Param("cardIdList") List<Long> cardIdList);
 
-    int selectLastMonthOrderCount(List<Long> cardIdList);
+    int selectLastMonthOrderCount(@Param("cardIdList") List<Long> cardIdList);
 
-    double selectTodayRebateCount(List<Long> cardIdList);
+    double selectTodayRebateCount(@Param("cardIdList") List<Long> cardIdList);
 
-    double selectMonthRebateCount(List<Long> cardIdList);
+    double selectMonthRebateCount(@Param("cardIdList") List<Long> cardIdList);
 
-    double selectLastTodayRebateCount(List<Long> cardIdList);
+    double selectLastTodayRebateCount(@Param("cardIdList") List<Long> cardIdList);
 
-    double selectLastMonthRebateCount(List<Long> cardIdList);
+    double selectLastMonthRebateCount(@Param("cardIdList") List<Long> cardIdList);
 
     List<OrderRecord> selectTodayListByCardIds(@Param("cardIdList") List<Long> cardIdList);
 

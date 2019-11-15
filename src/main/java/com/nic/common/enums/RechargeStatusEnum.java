@@ -1,5 +1,7 @@
 package com.nic.common.enums;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum RechargeStatusEnum {
 
     SUCCESS_SUCCESS("SUCCESS_SUCCESS", "充值成功返利成功订单"),
@@ -28,5 +30,14 @@ public enum RechargeStatusEnum {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public static String getMsgByCode(String code) {
+        for (RechargeStatusEnum rechargeStatusEnum : RechargeStatusEnum.values()) {
+            if (StringUtils.equals(code, rechargeStatusEnum.getCode())) {
+                return rechargeStatusEnum.getMsg();
+            }
+        }
+        return null;
     }
 }

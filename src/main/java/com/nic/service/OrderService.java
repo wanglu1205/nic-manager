@@ -242,6 +242,9 @@ public class OrderService {
                 cardIdList.add(Long.valueOf(id));
             }
         }
+        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount) && CollectionUtils.isEmpty(cardIdList)){
+            return null;
+        }
         Page<OrderListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
         OrderRecordExample example = new OrderRecordExample();
         OrderRecordExample.Criteria criteria = example.createCriteria();
@@ -261,6 +264,7 @@ public class OrderService {
             vo.setCreateTime(orderRecord.getGmtCreate());
             vo.setMoney(orderRecord.getMoney());
             vo.setRemark(orderRecord.getRemark());
+            vo.setStatus(RechargeStatusEnum.getMsgByCode(orderRecord.getStatus()));
             vos.add(vo);
         });
         return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);

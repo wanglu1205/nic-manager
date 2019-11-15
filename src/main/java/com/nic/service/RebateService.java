@@ -88,6 +88,9 @@ public class RebateService {
                 cardIdList.add(Long.valueOf(id));
             }
         }
+        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount) && CollectionUtils.isEmpty(cardIdList)){
+            return null;
+        }
         RebateRecordExample rebateRecordExample = new RebateRecordExample();
         RebateRecordExample.Criteria criteria = rebateRecordExample.createCriteria();
         if (!StringUtils.equals(loginer.getAccount(),AuthConstants.superAdminAccount) && !CollectionUtils.isEmpty(cardIdList)){

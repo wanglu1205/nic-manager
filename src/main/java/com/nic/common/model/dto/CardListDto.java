@@ -15,21 +15,10 @@ import lombok.Data;
 @Data
 public class CardListDto extends PageQuery {
 
-    @ApiModelProperty("开始ID")
-    private Long startId;
-
-    @ApiModelProperty("结束ID")
-    private Long endId;
-
     @ApiModelProperty("卡号")
     private String number;
 
     @ApiModelProperty("客户主键")
     private Long customerId;
 
-    @ApiModelProperty("运营商")
-    private String operator;
-
-    @ApiModelProperty("状态")
-    private String status;
 }

@@ -76,6 +76,9 @@ public class CardService {
                 cardIdList.add(Long.valueOf(id));
             }
         }
+        if (!StringUtils.equals(loginer.getAccount(), AuthConstants.superAdminAccount) && CollectionUtils.isEmpty(cardIdList)){
+            return null;
+        }
         Page<CustomerListVo> page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
@@ -84,11 +87,26 @@ public class CardService {
         }
         List<Card> cards = cardMapper.selectByExample(cardExample);
         List<CardListVo> vos = new ArrayList<>();
+
+        CustomerExample customerExample = new CustomerExample();
+        List<Customer> customers = customerMapper.selectByExample(customerExample);
         for (Card card : cards) {
             CardListVo vo = new CardListVo();
             vo.setId(card.getId());
-            vo.setName(loginer.getName());
             vo.setNumber(card.getNumber());
+            String name = "";
+            if (!CollectionUtils.isEmpty(customers)){
+                for (Customer customer : customers) {
+                    String cardIds1 = customer.getCardIds();
+                    if (StringUtils.isNotBlank(cardIds1)) {
+                        List<String> list = Arrays.asList(cardIds1.split(","));
+                        if (list.contains(String.valueOf(card.getId()))) {
+                            name += customer.getName() + ",";
+                        }
+                    }
+                }
+            }
+            vo.setName(name.substring(0, name.length() - 1));
             /*vo.setResidualFlowValue(card.getResidualFlowValue());
             vo.setMonthUsedValue(card.getMonthUsedValue());
             vo.setTotalUsedValue(card.getTotalUsedValue());
