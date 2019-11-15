@@ -22,6 +22,9 @@ public class RebateRecordListVo {
     @ApiModelProperty("客户名称")
     private String customerName;
 
+    @ApiModelProperty("客户账号")
+    private String account;
+
     @ApiModelProperty("卡号")
     private String number;
 

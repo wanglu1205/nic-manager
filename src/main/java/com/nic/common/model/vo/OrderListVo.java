@@ -16,11 +16,20 @@ import java.util.Date;
 @Data
 public class OrderListVo {
 
+    @ApiModelProperty("主键")
+    private Long id;
+
     @ApiModelProperty("订单号")
     private String orderNumber;
 
     @ApiModelProperty("卡号")
     private String number;
+
+    @ApiModelProperty("客户名称")
+    private String name;
+
+    @ApiModelProperty("客户账号")
+    private String account;
 
     @ApiModelProperty("提交时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

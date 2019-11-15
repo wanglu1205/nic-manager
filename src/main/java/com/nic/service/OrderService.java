@@ -92,6 +92,9 @@ public class OrderService {
         }
 
         Customer customer = customerService.getInfoByToken(token);
+        if (Objects.isNull(customer)){
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
+        }
 
         CustomerExample customerExample = new CustomerExample();
         List<Customer> customerList = customerMapper.selectByExample(customerExample);
@@ -232,7 +235,7 @@ public class OrderService {
     public PageResult<OrderListVo> list(OrderListDto dto, String token) {
         Customer loginer = customerService.getInfoByToken(token);
         if (Objects.isNull(loginer)){
-            throw new AppException(ErrorCode.NOT_EXIST);
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
         }
         List<Long> cardIdList = new ArrayList<>();
         String cardIds = loginer.getCardIds();
@@ -264,7 +267,13 @@ public class OrderService {
             vo.setCreateTime(orderRecord.getGmtCreate());
             vo.setMoney(orderRecord.getMoney());
             vo.setRemark(orderRecord.getRemark());
+            Customer customer = customerMapper.selectByPrimaryKey(orderRecord.getCustomerId());
+            if (Objects.nonNull(customer)){
+                vo.setAccount(customer.getAccount());
+                vo.setName(customer.getName());
+            }
             vo.setStatus(RechargeStatusEnum.getMsgByCode(orderRecord.getStatus()));
+            vo.setId(orderRecord.getId());
             vos.add(vo);
         });
         return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);

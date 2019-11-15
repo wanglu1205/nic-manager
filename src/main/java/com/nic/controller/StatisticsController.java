@@ -2,6 +2,8 @@ package com.nic.controller;
 
 import com.nic.auth.AuthConstants;
 import com.nic.auth.LoginToken;
+import com.nic.common.model.PageResult;
+import com.nic.common.model.dto.StatisticsCustomerDto;
 import com.nic.common.model.vo.CustomerVo;
 import com.nic.common.model.vo.ProfitVo;
 import com.nic.config.RestResponse;
@@ -11,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +44,7 @@ public class StatisticsController {
     @PostMapping("/customer")
     @ApiOperation(httpMethod = "POST", value = "代理统计")
     @ApiImplicitParam(paramType = "header", name = "token", value = "令牌", dataType = "String", required = true, defaultValue = AuthConstants.testToken)
-    public RestResponse<List<CustomerVo>> customer(@ApiParam(hidden = true) @LoginToken String token, String type) {
-        return RestResponse.success(statisticsService.customer(token, type));
+    public RestResponse<PageResult<CustomerVo>> customer(@RequestBody StatisticsCustomerDto dto, @ApiParam(hidden = true) @LoginToken String token) {
+        return RestResponse.success(statisticsService.customer(token, dto));
     }
 }

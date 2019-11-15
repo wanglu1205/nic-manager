@@ -4,7 +4,7 @@
 
 
   <select id="selectTodayOrderCount" resultType="java.lang.Integer">
-    select count(1) from order_record where to_days(gmt_create)= to_days(now())
+    select count(1) from order_record where DATEDIFF(gmt_create,NOW())=0
     <if test="cardIdList != null">
       AND card_id IN
       <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
@@ -24,7 +24,7 @@
   </select>
 
   <select id="selectLastTodayOrderCount" resultType="java.lang.Integer">
-    select count(1) from order_record where to_days(now())-to_days(gmt_create) <![CDATA[<=]]> 1
+    select count(1) from order_record where DATEDIFF(gmt_create,NOW())=-1
     <if test="cardIdList != null">
       AND card_id IN
       <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
@@ -44,7 +44,7 @@
   </select>
 
   <select id="selectTodayRebateCount" resultType="java.lang.Double">
-    select COALESCE(sum(rebate),0) from order_record where to_days(gmt_create)= to_days(now())
+    select COALESCE(sum(rebate),0) from order_record where DATEDIFF(gmt_create,NOW())=0
     <if test="cardIdList != null">
       AND card_id IN
       <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
@@ -64,7 +64,7 @@
   </select>
 
   <select id="selectLastTodayRebateCount" resultType="java.lang.Double">
-    select COALESCE(sum(rebate),0) from order_record where to_days(now())-to_days(gmt_create) <![CDATA[<=]]> 1
+    select COALESCE(sum(rebate),0) from order_record where DATEDIFF(gmt_create,NOW())=-1
     <if test="cardIdList != null">
       AND card_id IN
       <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
@@ -84,7 +84,7 @@
   </select>
 
     <select id="selectTodayListByCardIds" resultType="com.nic.dal.entity.OrderRecord">
-      select * from order_record where to_days(gmt_create)= to_days(now())
+      select * from order_record where DATEDIFF(gmt_create,NOW())=0
       <if test="cardIdList != null">
         AND card_id IN
         <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">
@@ -104,7 +104,7 @@
   </select>
 
   <select id="selectYesterdayListByCardIds" resultType="com.nic.dal.entity.OrderRecord">
-    select * from order_record where to_days(now())-to_days(gmt_create) <![CDATA[<=]]> 1
+    select * from order_record where DATEDIFF(gmt_create,NOW())=-1
     <if test="cardIdList != null">
       AND card_id IN
       <foreach collection="cardIdList" item="cardId" index="index" open="(" close=")" separator=",">

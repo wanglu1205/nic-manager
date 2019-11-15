@@ -78,7 +78,7 @@ public class RebateService {
     public PageResult<RebateRecordListVo> recordList(RebateRecordListDto dto, String token) {
         Customer loginer = customerService.getInfoByToken(token);
         if (Objects.isNull(loginer)){
-            throw new AppException(ErrorCode.NOT_EXIST);
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
         }
         List<Long> cardIdList = new ArrayList<>();
         String cardIds = loginer.getCardIds();
@@ -129,6 +129,7 @@ public class RebateService {
             Customer customer = customerMapper.selectByPrimaryKey(rebateRecord.getCustomerId());
             if (Objects.nonNull(customer)){
                 vo.setCustomerName(customer.getName());
+                vo.setAccount(customer.getAccount());
             }
             Card card = cardMapper.selectByPrimaryKey(rebateRecord.getCardId());
             if (Objects.nonNull(card)){

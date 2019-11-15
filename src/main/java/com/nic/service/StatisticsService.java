@@ -1,8 +1,13 @@
 package com.nic.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.nic.auth.AuthConstants;
 import com.nic.common.enums.CustomerStatisticsEnum;
+import com.nic.common.model.PageResult;
+import com.nic.common.model.dto.StatisticsCustomerDto;
 import com.nic.common.model.vo.CustomerVo;
+import com.nic.common.model.vo.PackageListVo;
 import com.nic.common.model.vo.ProfitVo;
 import com.nic.config.AppException;
 import com.nic.config.ErrorCode;
@@ -44,7 +49,7 @@ public class StatisticsService {
     public ProfitVo profit(String token) {
         Customer customer = customerService.getInfoByToken(token);
         if (Objects.isNull(customer)){
-            throw new AppException(ErrorCode.NOT_EXIST);
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
         }
 
         if (StringUtils.equals(customer.getAccount(), AuthConstants.superAdminAccount)){
@@ -141,10 +146,10 @@ public class StatisticsService {
         }
     }
 
-    public List<CustomerVo> customer(String token, String type) {
+    public PageResult<CustomerVo> customer(String token, StatisticsCustomerDto dto) {
         Customer customer = customerService.getInfoByToken(token);
         if (Objects.isNull(customer)){
-            throw new AppException(ErrorCode.NOT_EXIST);
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
         }
         if (!StringUtils.equals(customer.getAccount(), AuthConstants.superAdminAccount)){
             return null;
@@ -156,21 +161,23 @@ public class StatisticsService {
             return null;
         }
         List<CustomerVo> vos = new ArrayList<>();
-        customerList.forEach(c -> {
+        Page<PackageListVo> page = null;
+        for (Customer c : customerList) {
             List<Long> cardIdList = new ArrayList<>();
             String cardIds = c.getCardIds();
-            if (StringUtils.isNotBlank(cardIds)){
+            if (StringUtils.isNotBlank(cardIds)) {
                 String[] ids = cardIds.split(",");
-                for (String id: ids){
+                for (String id : ids) {
                     cardIdList.add(Long.valueOf(id));
                 }
             }
 
-            if (CollectionUtils.isEmpty(cardIdList)){
-                return;
+            if (CollectionUtils.isEmpty(cardIdList)) {
+                continue;
             }
             List<OrderRecord> orderRecords = new ArrayList<>();
-            switch (CustomerStatisticsEnum.getEnumByCode(type)){
+            page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
+            switch (CustomerStatisticsEnum.getEnumByCode(dto.getGrade())) {
                 case today:
                     orderRecords = orderRecordMapext.selectTodayListByCardIds(cardIdList);
                     break;
@@ -183,7 +190,7 @@ public class StatisticsService {
                 case last_month:
                     orderRecords = orderRecordMapext.selectLastMonthListByCardIds(cardIdList);
                     break;
-                    default:
+                default:
             }
 
             BigDecimal rebateCount = orderRecords.stream().map(OrderRecord::getRebate).reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -194,8 +201,8 @@ public class StatisticsService {
             vo.setRebateCount(rebateCount);
 
             vos.add(vo);
-        });
+        }
 
-        return vos;
+        return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);
     }
 }

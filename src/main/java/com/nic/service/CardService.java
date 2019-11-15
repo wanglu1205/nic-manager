@@ -66,7 +66,7 @@ public class CardService {
     public PageResult<CardListVo> list(CardListDto dto, String token) {
         Customer loginer = customerService.getInfoByToken(token);
         if (Objects.isNull(loginer)){
-            throw new AppException(ErrorCode.NOT_EXIST);
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
         }
         List<Long> cardIdList = new ArrayList<>();
         String cardIds = loginer.getCardIds();
@@ -95,6 +95,7 @@ public class CardService {
             vo.setId(card.getId());
             vo.setNumber(card.getNumber());
             String name = "";
+            String account = "";
             if (!CollectionUtils.isEmpty(customers)){
                 for (Customer customer : customers) {
                     String cardIds1 = customer.getCardIds();
@@ -102,11 +103,17 @@ public class CardService {
                         List<String> list = Arrays.asList(cardIds1.split(","));
                         if (list.contains(String.valueOf(card.getId()))) {
                             name += customer.getName() + ",";
+                            account += customer.getAccount() + ",";
                         }
                     }
                 }
             }
-            vo.setName(name.substring(0, name.length() - 1));
+            if (StringUtils.isNotBlank(name)){
+                vo.setName(name.substring(0, name.length() - 1));
+            }
+            if (StringUtils.isNotBlank(account)){
+                vo.setAccount(account.substring(0, account.length() - 1));
+            }
             /*vo.setResidualFlowValue(card.getResidualFlowValue());
             vo.setMonthUsedValue(card.getMonthUsedValue());
             vo.setTotalUsedValue(card.getTotalUsedValue());
@@ -132,7 +139,7 @@ public class CardService {
         Card c = new Card();
         c.setId(card.getId());
         c.setMsisdn(cardStatusVo.getMSISDN());
-        cardMapper.insertSelective(c);
+        cardMapper.updateByPrimaryKeySelective(c);
         return cardStatusVo;
     }
 
@@ -240,6 +247,9 @@ public class CardService {
 
     private List<Customer> getCustomer(String token) {
         Customer loginer = customerService.getInfoByToken(token);
+        if (Objects.isNull(loginer)){
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
+        }
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria().andParentIdEqualTo(loginer.getId());
         List<Customer> customerList = customerMapper.selectByExample(customerExample);

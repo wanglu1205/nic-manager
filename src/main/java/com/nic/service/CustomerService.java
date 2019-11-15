@@ -47,7 +47,7 @@ public class CustomerService {
     public PageResult<CustomerListVo> list(CustomerListDto dto, String token) {
         Customer customer = getInfoByToken(token);
         if (Objects.isNull(customer)){
-            throw new AppException(ErrorCode.NOT_EXIST);
+            throw new AppException(ErrorCode.ERR_AUTH, "token过期");
         }
 
         switch (CustomerTypeEnum.getEnumByCode(dto.getType())){
@@ -150,7 +150,7 @@ public class CustomerService {
         customerExample.createCriteria().andTokenEqualTo(token);
         List<Customer> customers = customerMapper.selectByExample(customerExample);
         if (CollectionUtils.isEmpty(customers)){
-            throw new AppException(ErrorCode.NOT_EXIST, "该用户不存在");
+            throw new AppException(ErrorCode.NOT_EXIST);
         }
         return customers.get(0);
     }
@@ -176,6 +176,9 @@ public class CustomerService {
         customer.setGmtModified(date);
         if (Objects.isNull(dto.getId())){
             Customer loginer = getInfoByToken(token);
+            if (Objects.isNull(customer)){
+                throw new AppException(ErrorCode.ERR_AUTH, "token过期");
+            }
             customer.setAccount(dto.getAccount());
             customer.setIsEnabled(true);
             customer.setParentId(loginer.getId());
