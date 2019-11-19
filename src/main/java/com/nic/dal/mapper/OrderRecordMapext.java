@@ -30,4 +30,12 @@ public interface OrderRecordMapext {
     List<OrderRecord> selectYesterdayListByCardIds(@Param("cardIdList") List<Long> cardIdList);
 
     List<OrderRecord> selectLastMonthListByCardIds(@Param("cardIdList") List<Long> cardIdList);
+
+    List<OrderRecord> selectTodayListByCustomerId(@Param("customerId") Long customerId);
+
+    List<OrderRecord> selectMonthListByCustomerId(@Param("customerId") Long customerId);
+
+    List<OrderRecord> selectYesterdayListByCustomerId(@Param("customerId") Long customerId);
+
+    List<OrderRecord> selectLastMonthListByCustomerId(@Param("customerId") Long customerId);
 }

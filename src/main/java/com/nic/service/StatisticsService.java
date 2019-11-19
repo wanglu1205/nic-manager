@@ -22,8 +22,10 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @auther: wl
@@ -163,7 +165,27 @@ public class StatisticsService {
         List<CustomerVo> vos = new ArrayList<>();
         Page<PackageListVo> page = null;
         for (Customer c : customerList) {
-            List<Long> cardIdList = new ArrayList<>();
+            List<OrderRecord> orderRecords = new ArrayList<>();
+            page = PageHelper.startPage(dto.getPageNo(), dto.getPageSize());
+            switch (CustomerStatisticsEnum.getEnumByCode(dto.getGrade())) {
+                case today:
+                    orderRecords = orderRecordMapext.selectTodayListByCustomerId(c.getId());
+                    break;
+                case month:
+                    orderRecords = orderRecordMapext.selectMonthListByCustomerId(c.getId());
+                    break;
+                case yesterday:
+                    orderRecords = orderRecordMapext.selectYesterdayListByCustomerId(c.getId());
+                    break;
+                case last_month:
+                    orderRecords = orderRecordMapext.selectLastMonthListByCustomerId(c.getId());
+                    break;
+                default:
+            }
+
+            BigDecimal rebateCount = orderRecords.stream().map(OrderRecord::getRebate).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            /*List<Long> cardIdList = new ArrayList<>();
             String cardIds = c.getCardIds();
             if (StringUtils.isNotBlank(cardIds)) {
                 String[] ids = cardIds.split(",");
@@ -193,7 +215,7 @@ public class StatisticsService {
                 default:
             }
 
-            BigDecimal rebateCount = orderRecords.stream().map(OrderRecord::getRebate).reduce(BigDecimal.ZERO, BigDecimal::add);
+            BigDecimal rebateCount = orderRecords.stream().map(OrderRecord::getRebate).reduce(BigDecimal.ZERO, BigDecimal::add);*/
 
             CustomerVo vo = new CustomerVo();
             vo.setName(c.getName());
@@ -202,7 +224,9 @@ public class StatisticsService {
 
             vos.add(vo);
         }
-
+        vos = vos.stream().sorted(Comparator.comparing(CustomerVo::getOrderCount).reversed())
+                .sorted(Comparator.comparing(CustomerVo::getRebateCount).reversed())
+                .collect(Collectors.toList());
         return new PageResult<>(page.getPageNum(), page.getPageSize(), page.getTotal(), vos);
     }
 }

@@ -122,4 +122,31 @@
       </foreach>
     </if>
   </select>
+  <select id="selectTodayListByCustomerId" resultType="com.nic.dal.entity.OrderRecord">
+    select * from order_record where DATEDIFF(gmt_create,NOW())=0
+    <if test="customerId != null">
+      AND customer_id = #{customerId}
+    </if>
+  </select>
+
+  <select id="selectMonthListByCustomerId" resultType="com.nic.dal.entity.OrderRecord">
+    select * from order_record where date_format(gmt_create, '%Y%m') = date_format(curdate() ,'%Y%m')
+    <if test="customerId != null">
+      AND customer_id = #{customerId}
+    </if>
+  </select>
+
+  <select id="selectYesterdayListByCustomerId" resultType="com.nic.dal.entity.OrderRecord">
+    select * from order_record where DATEDIFF(gmt_create,NOW())=-1
+    <if test="customerId != null">
+      AND customer_id = #{customerId}
+    </if>
+  </select>
+
+  <select id="selectLastMonthListByCustomerId" resultType="com.nic.dal.entity.OrderRecord">
+    select * from order_record where period_diff(date_format(now(),'%Y%m'),date_format(gmt_create,'%Y%m')) = 1
+    <if test="customerId != null">
+      AND customer_id = #{customerId}
+    </if>
+  </select>
 </mapper>
